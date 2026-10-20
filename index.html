@@ -4,60 +4,795 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#6c63ff">
-<meta name="description" content="Kido is a fun learning app for children aged 5–10. Learn letters, numbers, colors, animals, and shapes in Kinyarwanda, Swedish, English, and French.">
+<meta name="description" content="EBKIDO is a fun learning app for children aged 5–10. Learn in Kinyarwanda, Swedish, English and French.">
 <link rel="manifest" href="manifest.json">
-<title>Kido — Learn & Play</title>
+<title>EBKIDO — Learn & Play</title>
+
 <style>
-:root{--purple:#6c63ff;--ink:#25234a;--bg:#f7f7ff;--card:#fff;--pink:#ff7eb6;--yellow:#ffd166;--green:#65d6a5}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
-header{padding:22px 16px 28px;background:linear-gradient(135deg,#6c63ff,#a18aff);color:white;border-radius:0 0 28px 28px}
-.top{max-width:1000px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.logo{font-size:2rem;font-weight:900;letter-spacing:-1px}.tag{opacity:.95}
-select,button{font:inherit;border:0;border-radius:14px;padding:12px 14px;cursor:pointer}
-select{background:white;color:var(--ink);max-width:100%}
-main{max-width:1000px;margin:22px auto;padding:0 16px}
-.welcome{background:#fff;border-radius:22px;padding:20px;box-shadow:0 8px 24px #29226b10;margin-top:-4px}
-h1{font-size:clamp(1.5rem,4vw,2.3rem);margin:0 0 8px}p{line-height:1.5}
-.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:12px;margin:18px 0}
-.cat{min-height:112px;background:white;border-radius:20px;padding:16px;text-align:center;box-shadow:0 5px 18px #25234a0c;color:var(--ink);font-weight:750;border:2px solid transparent}
-.cat span{display:block;font-size:2rem;margin-bottom:6px}.cat.active{border-color:var(--purple);background:#f0efff}
-.panel{background:white;border-radius:24px;padding:22px;box-shadow:0 8px 24px #29226b10;text-align:center}
-.prompt{font-size:clamp(1.25rem,4vw,2rem);font-weight:850;margin:4px}
-.big{font-size:clamp(4rem,13vw,7rem);margin:12px}
-.answer-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0}
-.answer{background:#f0efff;color:var(--ink);font-weight:750;min-width:100px}.primary{background:var(--purple);color:white;font-weight:800}.secondary{background:#f1f1fa;color:var(--ink)}
-.feedback{min-height:32px;font-weight:800;margin-top:10px}.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}.stat{flex:1;background:#fff;border-radius:16px;padding:14px;text-align:center;min-width:120px}.stat strong{display:block;font-size:1.5rem}
-footer{text-align:center;padding:24px;color:#777}
-button:focus-visible,select:focus-visible{outline:3px solid #ffbf47;outline-offset:3px}
-@media(min-width:720px){.layout{display:grid;grid-template-columns:1fr 1.25fr;gap:18px;align-items:start}.categories{grid-template-columns:repeat(2,1fr)}}
+:root {
+  --purple: #6c63ff;
+  --ink: #25234a;
+  --bg: #f7f7ff;
+  --card: #ffffff;
+  --pink: #ff7eb6;
+  --yellow: #ffd166;
+  --green: #65d6a5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+header {
+  padding: 22px 16px 28px;
+  background: linear-gradient(135deg, #6c63ff, #a18aff);
+  color: white;
+  border-radius: 0 0 28px 28px;
+}
+
+.top {
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.tag { opacity: .95; }
+
+.header-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+select, button {
+  font: inherit;
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 14px;
+  cursor: pointer;
+}
+
+select {
+  background: white;
+  color: var(--ink);
+  max-width: 100%;
+}
+
+.auth-button {
+  background: white;
+  color: var(--purple);
+  font-weight: 800;
+  text-decoration: none;
+  display: inline-block;
+  padding: 11px 14px;
+  border-radius: 14px;
+  font-size: .95rem;
+}
+
+.auth-button:hover { background: #f0efff; }
+
+.logout-button {
+  background: #ffe7ed;
+  color: #8d254b;
+  font-weight: 800;
+}
+
+main {
+  max-width: 1000px;
+  margin: 22px auto;
+  padding: 0 16px;
+}
+
+.welcome {
+  background: white;
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: 0 8px 24px #29226b10;
+  margin-top: -4px;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 4vw, 2.3rem);
+  margin: 0 0 8px;
+}
+
+p { line-height: 1.5; }
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.cat {
+  min-height: 112px;
+  background: white;
+  border-radius: 20px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 5px 18px #25234a0c;
+  color: var(--ink);
+  font-weight: 750;
+  border: 2px solid transparent;
+}
+
+.cat span {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.cat.active {
+  border-color: var(--purple);
+  background: #f0efff;
+}
+
+.panel {
+  background: white;
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 8px 24px #29226b10;
+  text-align: center;
+}
+
+.prompt {
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-weight: 850;
+  margin: 4px;
+}
+
+.big {
+  font-size: clamp(4rem, 13vw, 7rem);
+  margin: 12px;
+}
+
+.answer-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+
+.answer {
+  background: #f0efff;
+  color: var(--ink);
+  font-weight: 750;
+  min-width: 100px;
+}
+
+.primary {
+  background: var(--purple);
+  color: white;
+  font-weight: 800;
+}
+
+.secondary {
+  background: #f1f1fa;
+  color: var(--ink);
+}
+
+.feedback {
+  min-height: 32px;
+  font-weight: 800;
+  margin-top: 10px;
+}
+
+.stats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.stat {
+  flex: 1;
+  background: white;
+  border-radius: 16px;
+  padding: 14px;
+  text-align: center;
+  min-width: 120px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 1.5rem;
+}
+
+footer {
+  text-align: center;
+  padding: 24px;
+  color: #777;
+}
+
+button:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 3px solid #ffbf47;
+  outline-offset: 3px;
+}
+
+button:hover { filter: brightness(.97); }
+
+.auth-status {
+  font-size: .9rem;
+  font-weight: 700;
+  color: white;
+}
+
+@media (min-width: 720px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .top { align-items: flex-start; }
+  .header-controls { width: 100%; }
+  .header-controls select { flex: 1; }
+  .auth-button { padding: 10px 11px; }
+}
 </style>
 </head>
+
 <body>
-<header><div class="top"><div><div class="logo">🌈 Kido</div><div class="tag" id="tagline">Learn a little. Grow a lot!</div></div><label><span id="languageLabel">Language</span> <select id="language" aria-label="Choose language"><option value="en">🇬🇧 English</option><option value="rw">🇷🇼 Kinyarwanda</option><option value="sv">🇸🇪 Svenska</option><option value="fr">🇫🇷 Français</option></select></label></div></header>
+
+<header>
+  <div class="top">
+    <div>
+      <div class="logo">🌈 EBKIDO</div>
+      <div class="tag" id="tagline">Learn a little. Grow a lot!</div>
+    </div>
+
+    <div class="header-controls">
+      <label>
+        <span id="languageLabel">Language</span>
+        <select id="language" aria-label="Choose language">
+          <option value="en">🇬🇧 English</option>
+          <option value="rw">🇷🇼 Kinyarwanda</option>
+          <option value="sv">🇸🇪 Svenska</option>
+          <option value="fr">🇫🇷 Français</option>
+        </select>
+      </label>
+
+      <div id="authButtons">
+        <a class="auth-button" id="loginLink" href="login.html">🔑 Login</a>
+        <a class="auth-button" id="registerLink" href="register.html">✨ Register</a>
+      </div>
+
+      <div id="accountButtons" hidden>
+        <a class="auth-button" id="accountLink" href="account.html">👤 My Account</a>
+        <button class="logout-button" id="logoutButton" type="button">↪ Logout</button>
+      </div>
+    </div>
+  </div>
+</header>
+
 <main>
-<section class="welcome"><h1 id="welcomeTitle">Hello, little learner! 👋</h1><p id="welcomeText">Choose a topic, listen, look, and play. Made for children aged 5–10.</p></section>
-<div class="layout"><nav class="categories" aria-label="Learning topics" id="categories"></nav>
-<section class="panel" aria-live="polite"><div class="prompt" id="prompt">What number is this?</div><div class="big" id="picture">1️⃣</div><div class="answer-row" id="answers"></div><button class="primary" id="listen">🔊 Listen</button> <button class="secondary" id="next">➡️ Next</button><div class="feedback" id="feedback"></div></section></div>
-<div class="stats"><div class="stat">⭐ <strong id="stars">0</strong><span id="starsLabel">Stars earned</span></div><div class="stat">✅ <strong id="correct">0</strong><span id="correctLabel">Correct answers</span></div></div>
-</main><footer>Made with ❤️ for curious kids · Kido</footer>
+  <section class="welcome">
+    <h1 id="welcomeTitle">Hello, little learner! 👋</h1>
+    <p id="welcomeText">
+      Choose a topic, listen, look, and play. Made for children aged 5–10.
+    </p>
+    <p id="accountMessage" class="auth-status" style="color:#6c63ff"></p>
+  </section>
+
+  <div class="layout">
+    <nav class="categories" aria-label="Learning topics" id="categories"></nav>
+
+    <section class="panel" aria-live="polite">
+      <div class="prompt" id="prompt">What number is this?</div>
+      <div class="big" id="picture">1️⃣</div>
+      <div class="answer-row" id="answers"></div>
+      <button class="primary" id="listen" type="button">🔊 Listen</button>
+      <button class="secondary" id="next" type="button">➡️ Next</button>
+      <div class="feedback" id="feedback"></div>
+    </section>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      ⭐ <strong id="stars">0</strong>
+      <span id="starsLabel">Stars earned</span>
+    </div>
+    <div class="stat">
+      ✅ <strong id="correct">0</strong>
+      <span id="correctLabel">Correct answers</span>
+    </div>
+  </div>
+</main>
+
+<footer>Made with ❤️ for curious kids · EBKIDO</footer>
+
+<!-- Supabase library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Your Supabase configuration -->
+<script src="./supabaseClient.js"></script>
+
 <script>
-const ui={
-en:{tag:"Learn a little. Grow a lot!",language:"Language",welcome:"Hello, little learner! 👋",intro:"Choose a topic, listen, look, and play. Made for children aged 5–10.",stars:"Stars earned",correct:"Correct answers",listen:"🔊 Listen",next:"➡️ Next",topics:["Numbers","Letters","Colors","Animals","Shapes","Quiz"],question:"What is this?",number:"What number is this?",letter:"Which letter is this?",color:"Which color is this?",animal:"Which animal is this?",shape:"Which shape is this?",quiz:"Choose the correct answer!",great:"Great job! ⭐",try:"Good try! Let's learn together.",numberNames:["zero","one","two","three","four","five","six","seven","eight","nine","ten"],letterNames:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),colorNames:["red","blue","yellow","green","orange","purple"],animalNames:["cat","dog","cow","lion","fish","bird"],shapeNames:["circle","square","triangle","star","heart","rectangle"]},
-rw:{tag:"Iga buhoro, utere imbere!",language:"Ururimi",welcome:"Muraho mwana mwiza! 👋",intro:"Hitamo isomo, umva, urebe kandi ukine. Bigenewe abana b’imyaka 5–10.",stars:"Inyenyeri wabonye",correct:"Ibisubizo nyabyo",listen:"🔊 Umva",next:"➡️ Ibikurikira",topics:["Imibare","Inyuguti","Amabara","Inyamaswa","Imiterere","Ikibazo"],question:"Ibi ni iki?",number:"Iyi ni iyihe mibare?",letter:"Iyi ni iyihe nyuguti?",color:"Iri ni irihe bara?",animal:"Iyi ni iyihe nyamaswa?",shape:"Iyi ni iyihe shusho?",quiz:"Hitamo igisubizo nyacyo!",great:"Ni byiza cyane! ⭐",try:"Gerageza nanone, dukomeze kwiga.",numberNames:["zeru","rimwe","kabiri","gatatu","kane","gatanu","gatandatu","karindwi","umunani","icyenda","icumi"],letterNames:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),colorNames:["umutuku","ubururu","umuhondo","icyatsi","icunga","ikijuju"],animalNames:["injangwe","imbwa","inka","intare","ifi","inyoni"],shapeNames:["uruziga","kare","mpandeshatu","inyenyeri","umutima","urukiramende"]},
-sv:{tag:"Lär lite. Väx mycket!",language:"Språk",welcome:"Hej, lilla lärling! 👋",intro:"Välj ett ämne, lyssna, titta och lek. För barn 5–10 år.",stars:"Intjänade stjärnor",correct:"Rätta svar",listen:"🔊 Lyssna",next:"➡️ Nästa",topics:["Siffror","Bokstäver","Färger","Djur","Former","Quiz"],question:"Vad är det här?",number:"Vilket tal är det här?",letter:"Vilken bokstav är det här?",color:"Vilken färg är det här?",animal:"Vilket djur är det här?",shape:"Vilken form är det här?",quiz:"Välj rätt svar!",great:"Bra jobbat! ⭐",try:"Bra försök! Vi lär oss tillsammans.",numberNames:["noll","ett","två","tre","fyra","fem","sex","sju","åtta","nio","tio"],letterNames:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),colorNames:["röd","blå","gul","grön","orange","lila"],animalNames:["katt","hund","ko","lejon","fisk","fågel"],shapeNames:["cirkel","fyrkant","triangel","stjärna","hjärta","rektangel"]},
-fr:{tag:"Apprends un peu. Grandis beaucoup !",language:"Langue",welcome:"Bonjour, petit apprenant ! 👋",intro:"Choisis un sujet, écoute, regarde et joue. Pour les enfants de 5 à 10 ans.",stars:"Étoiles gagnées",correct:"Bonnes réponses",listen:"🔊 Écouter",next:"➡️ Suivant",topics:["Nombres","Lettres","Couleurs","Animaux","Formes","Quiz"],question:"Qu’est-ce que c’est ?",number:"Quel est ce nombre ?",letter:"Quelle est cette lettre ?",color:"Quelle est cette couleur ?",animal:"Quel est cet animal ?",shape:"Quelle est cette forme ?",quiz:"Choisis la bonne réponse !",great:"Bravo ! ⭐",try:"Bien essayé ! Apprenons ensemble.",numberNames:["zéro","un","deux","trois","quatre","cinq","six","sept","huit","neuf","dix"],letterNames:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),colorNames:["rouge","bleu","jaune","vert","orange","violet"],animalNames:["chat","chien","vache","lion","poisson","oiseau"],shapeNames:["cercle","carré","triangle","étoile","cœur","rectangle"]}
+"use strict";
+
+/* =========================================
+   EBKIDO AUTHENTICATION
+   Uses the supabaseClient.js file
+========================================= */
+
+const authButtons = document.getElementById("authButtons");
+const accountButtons = document.getElementById("accountButtons");
+const accountMessage = document.getElementById("accountMessage");
+const logoutButton = document.getElementById("logoutButton");
+
+function showSignedInState(user) {
+  if (user) {
+    authButtons.hidden = true;
+    accountButtons.hidden = false;
+
+    const displayName =
+      user.user_metadata?.parent_name ||
+      user.user_metadata?.full_name ||
+      user.email ||
+      "";
+
+    accountMessage.textContent = displayName
+      ? `👋 ${displayName}`
+      : "";
+  } else {
+    authButtons.hidden = false;
+    accountButtons.hidden = true;
+    accountMessage.textContent = "";
+  }
+}
+
+async function initializeAuthentication() {
+  if (
+    typeof supabaseClient === "undefined" ||
+    !supabaseClient.auth
+  ) {
+    accountMessage.textContent =
+      "Authentication setup is missing. Check supabaseClient.js.";
+    console.error(
+      "Supabase client not found. Check the URL and public key in supabaseClient.js."
+    );
+    return;
+  }
+
+  try {
+    const { data, error } = await supabaseClient.auth.getSession();
+
+    if (error) throw error;
+
+    showSignedInState(data.session?.user || null);
+
+    supabaseClient.auth.onAuthStateChange((_event, session) => {
+      showSignedInState(session?.user || null);
+    });
+  } catch (error) {
+    console.error("Could not check login session:", error);
+    showSignedInState(null);
+  }
+}
+
+logoutButton.addEventListener("click", async () => {
+  if (
+    typeof supabaseClient === "undefined" ||
+    !supabaseClient.auth
+  ) {
+    return;
+  }
+
+  logoutButton.disabled = true;
+
+  try {
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) throw error;
+
+    showSignedInState(null);
+    accountMessage.textContent = "";
+    window.location.href = "index.html";
+  } catch (error) {
+    console.error("Logout failed:", error);
+    accountMessage.textContent =
+      "Could not log out. Please try again.";
+    logoutButton.disabled = false;
+  }
+});
+
+/* =========================================
+   FOUR-LANGUAGE LEARNING CONTENT
+========================================= */
+
+const ui = {
+  en: {
+    tag: "Learn a little. Grow a lot!",
+    language: "Language",
+    welcome: "Hello, little learner! 👋",
+    intro: "Choose a topic, listen, look, and play. Made for children aged 5–10.",
+    stars: "Stars earned",
+    correct: "Correct answers",
+    listen: "🔊 Listen",
+    next: "➡️ Next",
+    login: "🔑 Login",
+    register: "✨ Register",
+    account: "👤 My Account",
+    logout: "↪ Logout",
+    topics: ["Numbers", "Letters", "Colors", "Animals", "Shapes", "Quiz"],
+    question: "What is this?",
+    number: "What number is this?",
+    letter: "Which letter is this?",
+    color: "Which color is this?",
+    animal: "Which animal is this?",
+    shape: "Which shape is this?",
+    quiz: "Choose the correct answer!",
+    great: "Great job! ⭐",
+    try: "Good try! Let's learn together.",
+    numberNames: ["zero","one","two","three","four","five","six","seven","eight","nine","ten"],
+    letterNames: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+    colorNames: ["red","blue","yellow","green","orange","purple"],
+    animalNames: ["cat","dog","cow","lion","fish","bird"],
+    shapeNames: ["circle","square","triangle","star","heart","rectangle"]
+  },
+
+  rw: {
+    tag: "Iga buhoro, utere imbere!",
+    language: "Ururimi",
+    welcome: "Muraho mwana mwiza! 👋",
+    intro: "Hitamo isomo, umva, urebe kandi ukine. Bigenewe abana b’imyaka 5–10.",
+    stars: "Inyenyeri wabonye",
+    correct: "Ibisubizo nyabyo",
+    listen: "🔊 Umva",
+    next: "➡️ Ibikurikira",
+    login: "🔑 Injira",
+    register: "✨ Iyandikishe",
+    account: "👤 Konti yanjye",
+    logout: "↪ Sohoka",
+    topics: ["Imibare", "Inyuguti", "Amabara", "Inyamaswa", "Imiterere", "Ikibazo"],
+    question: "Ibi ni iki?",
+    number: "Iyi ni iyihe mibare?",
+    letter: "Iyi ni iyihe nyuguti?",
+    color: "Iri ni irihe bara?",
+    animal: "Iyi ni iyihe nyamaswa?",
+    shape: "Iyi ni iyihe shusho?",
+    quiz: "Hitamo igisubizo nyacyo!",
+    great: "Ni byiza cyane! ⭐",
+    try: "Gerageza nanone, dukomeze kwiga.",
+    numberNames: ["zeru","rimwe","kabiri","gatatu","kane","gatanu","gatandatu","karindwi","umunani","icyenda","icumi"],
+    letterNames: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+    colorNames: ["umutuku","ubururu","umuhondo","icyatsi","icunga","ikijuju"],
+    animalNames: ["injangwe","imbwa","inka","intare","ifi","inyoni"],
+    shapeNames: ["uruziga","kare","mpandeshatu","inyenyeri","umutima","urukiramende"]
+  },
+
+  sv: {
+    tag: "Lär lite. Väx mycket!",
+    language: "Språk",
+    welcome: "Hej, lilla lärling! 👋",
+    intro: "Välj ett ämne, lyssna, titta och lek. För barn 5–10 år.",
+    stars: "Intjänade stjärnor",
+    correct: "Rätta svar",
+    listen: "🔊 Lyssna",
+    next: "➡️ Nästa",
+    login: "🔑 Logga in",
+    register: "✨ Registrera",
+    account: "👤 Mitt konto",
+    logout: "↪ Logga ut",
+    topics: ["Siffror", "Bokstäver", "Färger", "Djur", "Former", "Quiz"],
+    question: "Vad är det här?",
+    number: "Vilket tal är det här?",
+    letter: "Vilken bokstav är det här?",
+    color: "Vilken färg är det här?",
+    animal: "Vilket djur är det här?",
+    shape: "Vilken form är det här?",
+    quiz: "Välj rätt svar!",
+    great: "Bra jobbat! ⭐",
+    try: "Bra försök! Vi lär oss tillsammans.",
+    numberNames: ["noll","ett","två","tre","fyra","fem","sex","sju","åtta","nio","tio"],
+    letterNames: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+    colorNames: ["röd","blå","gul","grön","orange","lila"],
+    animalNames: ["katt","hund","ko","lejon","fisk","fågel"],
+    shapeNames: ["cirkel","fyrkant","triangel","stjärna","hjärta","rektangel"]
+  },
+
+  fr: {
+    tag: "Apprends un peu. Grandis beaucoup !",
+    language: "Langue",
+    welcome: "Bonjour, petit apprenant ! 👋",
+    intro: "Choisis un sujet, écoute, regarde et joue. Pour les enfants de 5 à 10 ans.",
+    stars: "Étoiles gagnées",
+    correct: "Bonnes réponses",
+    listen: "🔊 Écouter",
+    next: "➡️ Suivant",
+    login: "🔑 Connexion",
+    register: "✨ Inscription",
+    account: "👤 Mon compte",
+    logout: "↪ Déconnexion",
+    topics: ["Nombres", "Lettres", "Couleurs", "Animaux", "Formes", "Quiz"],
+    question: "Qu’est-ce que c’est ?",
+    number: "Quel est ce nombre ?",
+    letter: "Quelle est cette lettre ?",
+    color: "Quelle est cette couleur ?",
+    animal: "Quel est cet animal ?",
+    shape: "Quelle est cette forme ?",
+    quiz: "Choisis la bonne réponse !",
+    great: "Bravo ! ⭐",
+    try: "Bien essayé ! Apprenons ensemble.",
+    numberNames: ["zéro","un","deux","trois","quatre","cinq","six","sept","huit","neuf","dix"],
+    letterNames: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+    colorNames: ["rouge","bleu","jaune","vert","orange","violet"],
+    animalNames: ["chat","chien","vache","lion","poisson","oiseau"],
+    shapeNames: ["cercle","carré","triangle","étoile","cœur","rectangle"]
+  }
 };
-const topics=["numbers","letters","colors","animals","shapes","quiz"], emojis={numbers:["0️⃣","1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟"],letters:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),colors:["🟥","🟦","🟨","🟩","🟧","🟪"],animals:["🐱","🐶","🐮","🦁","🐟","🐦"],shapes:["⚪","🟦","🔺","⭐","❤️","▭"]};
-let lang="en",topic="numbers",idx=1,stars=0,correct=0,currentOptions=[];
-const $=id=>document.getElementById(id);
-function say(text){if(!("speechSynthesis"in window)){ $("feedback").textContent="Audio is not supported in this browser.";return;}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang={en:"en-GB",rw:"rw-RW",sv:"sv-SE",fr:"fr-FR"}[lang];speechSynthesis.speak(u)}
-function labels(){return ui[lang]}
-function topicIndex(){return topics.indexOf(topic)}
-function data(){let u=labels(),key=topic==="quiz"?["numbers","letters","colors","animals","shapes"][Math.floor(Math.random()*5)]:topic;let arr=key==="numbers"?u.numberNames:key==="letters"?u.letterNames:key==="colors"?u.colorNames:key==="animals"?u.animalNames:u.shapeNames;let em=emojis[key];return {key,arr,em}}
-function renderCategories(){ $("categories").innerHTML="";labels().topics.forEach((name,i)=>{let b=document.createElement("button");b.className="cat"+(topics[i]===topic?" active":"");b.innerHTML=`<span>${["🔢","🔤","🎨","🐾","🔺","🧩"][i]}</span>${name}`;b.onclick=()=>{topic=topics[i];idx=topic==="numbers"?1:0;renderCategories();renderLesson()};$("categories").appendChild(b)})}
-function renderLesson(){let u=labels(),d=data();let i=Math.min(idx,d.arr.length-1);let prompts={numbers:u.number,letters:u.letter,colors:u.color,animals:u.animal,shapes:u.shape,quiz:u.quiz};$("prompt").textContent=prompts[d.key]||u.question;$("picture").textContent=d.em[i]||d.arr[i];let right=d.arr[i];currentOptions=[right];while(currentOptions.length<Math.min(4,d.arr.length)){let opt=d.arr[Math.floor(Math.random()*d.arr.length)];if(!currentOptions.includes(opt))currentOptions.push(opt)}currentOptions.sort(()=>Math.random()-.5);$("answers").innerHTML="";currentOptions.forEach(opt=>{let b=document.createElement("button");b.className="answer";b.textContent=opt;b.onclick=()=>{if(opt===right){stars++;correct++;$("feedback").textContent=u.great;$("stars").textContent=stars;$("correct").textContent=correct;say(right)}else{$("feedback").textContent=u.try;say(u.try)}};$("answers").appendChild(b)});$("feedback").textContent=""}
-function updateLanguage(){let u=labels();$("tagline").textContent=u.tag;$("languageLabel").textContent=u.language;$("welcomeTitle").textContent=u.welcome;$("welcomeText").textContent=u.intro;$("starsLabel").textContent=u.stars;$("correctLabel").textContent=u.correct;$("listen").textContent=u.listen;$("next").textContent=u.next;renderCategories();renderLesson()}
-$("language").addEventListener("change",e=>{lang=e.target.value;updateLanguage()});$("listen").onclick=()=>{let d=data();say(d.arr[Math.min(idx,d.arr.length-1)])};$("next").onclick=()=>{idx++;renderLesson()};updateLanguage();
-if("serviceWorker"in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+
+const topics = [
+  "numbers",
+  "letters",
+  "colors",
+  "animals",
+  "shapes",
+  "quiz"
+];
+
+const emojis = {
+  numbers: ["0️⃣","1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟"],
+  letters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+  colors: ["🟥","🟦","🟨","🟩","🟧","🟪"],
+  animals: ["🐱","🐶","🐮","🦁","🐟","🐦"],
+  shapes: ["⚪","🟦","🔺","⭐","❤️","▭"]
+};
+
+let lang = "en";
+let topic = "numbers";
+let idx = 1;
+let stars = 0;
+let correct = 0;
+let currentQuestion = null;
+let currentOptions = [];
+let answered = false;
+
+const $ = id => document.getElementById(id);
+
+function labels() {
+  return ui[lang];
+}
+
+function say(text) {
+  if (!("speechSynthesis" in window)) {
+    $("feedback").textContent =
+      "Audio is not supported in this browser.";
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+
+  utterance.lang = {
+    en: "en-GB",
+    rw: "rw-RW",
+    sv: "sv-SE",
+    fr: "fr-FR"
+  }[lang];
+
+  speechSynthesis.speak(utterance);
+}
+
+function data() {
+  let key = topic;
+
+  if (topic === "quiz") {
+    const quizTopics = [
+      "numbers",
+      "letters",
+      "colors",
+      "animals",
+      "shapes"
+    ];
+
+    key = quizTopics[Math.floor(Math.random() * quizTopics.length)];
+  }
+
+  const u = labels();
+
+  const arr = key === "numbers" ? u.numberNames :
+              key === "letters" ? u.letterNames :
+              key === "colors" ? u.colorNames :
+              key === "animals" ? u.animalNames :
+              u.shapeNames;
+
+  return {
+    key,
+    arr,
+    em: emojis[key]
+  };
+}
+
+function renderCategories() {
+  $("categories").innerHTML = "";
+
+  labels().topics.forEach((name, i) => {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className =
+      "cat" + (topics[i] === topic ? " active" : "");
+
+    const icon = document.createElement("span");
+
+    icon.textContent = [
+      "🔢", "🔤", "🎨", "🐾", "🔺", "🧩"
+    ][i];
+
+    button.appendChild(icon);
+    button.appendChild(document.createTextNode(name));
+
+    button.addEventListener("click", () => {
+      topic = topics[i];
+      idx = topic === "numbers" ? 1 : 0;
+      renderCategories();
+      renderLesson();
+    });
+
+    $("categories").appendChild(button);
+  });
+}
+
+function renderLesson() {
+  const u = labels();
+  const d = data();
+
+  const i = Math.min(idx, d.arr.length - 1);
+
+  const prompts = {
+    numbers: u.number,
+    letters: u.letter,
+    colors: u.color,
+    animals: u.animal,
+    shapes: u.shape,
+    quiz: u.quiz
+  };
+
+  $("prompt").textContent = prompts[d.key] || u.question;
+  $("picture").textContent = d.em[i] || d.arr[i];
+
+  const rightAnswer = d.arr[i];
+
+  currentQuestion = {
+    answer: rightAnswer,
+    spokenAnswer: rightAnswer,
+    key: d.key
+  };
+
+  currentOptions = [rightAnswer];
+
+  while (currentOptions.length < Math.min(4, d.arr.length)) {
+    const option = d.arr[Math.floor(Math.random() * d.arr.length)];
+
+    if (!currentOptions.includes(option)) {
+      currentOptions.push(option);
+    }
+  }
+
+  currentOptions.sort(() => Math.random() - 0.5);
+  $("answers").innerHTML = "";
+  $("feedback").textContent = "";
+  answered = false;
+
+  currentOptions.forEach(option => {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "answer";
+    button.textContent = option;
+
+    button.addEventListener("click", () => {
+      if (answered) return;
+
+      if (option === rightAnswer) {
+        answered = true;
+        stars++;
+        correct++;
+
+        $("feedback").textContent = u.great;
+        $("stars").textContent = stars;
+        $("correct").textContent = correct;
+
+        button.style.background = "#d8f8e9";
+
+        say(rightAnswer);
+      } else {
+        $("feedback").textContent = u.try;
+        say(u.try);
+      }
+    });
+
+    $("answers").appendChild(button);
+  });
+}
+
+function updateLanguage() {
+  const u = labels();
+
+  $("tagline").textContent = u.tag;
+  $("languageLabel").textContent = u.language;
+  $("welcomeTitle").textContent = u.welcome;
+  $("welcomeText").textContent = u.intro;
+  $("starsLabel").textContent = u.stars;
+  $("correctLabel").textContent = u.correct;
+  $("listen").textContent = u.listen;
+  $("next").textContent = u.next;
+  $("loginLink").textContent = u.login;
+  $("registerLink").textContent = u.register;
+  $("accountLink").textContent = u.account;
+  $("logoutButton").textContent = u.logout;
+
+  renderCategories();
+  renderLesson();
+}
+
+$("language").addEventListener("change", event => {
+  lang = event.target.value;
+  document.documentElement.lang = lang;
+  updateLanguage();
+});
+
+$("listen").addEventListener("click", () => {
+  if (currentQuestion) {
+    say(currentQuestion.spokenAnswer);
+  }
+});
+
+$("next").addEventListener("click", () => {
+  idx++;
+
+  const d = data();
+
+  if (idx >= d.arr.length) {
+    idx = 0;
+  }
+
+  renderLesson();
+});
+
+/* Keep the existing PWA service worker support. */
+if (
+  "serviceWorker" in navigator &&
+  location.protocol.startsWith("http")
+) {
+  navigator.serviceWorker.register("./sw.js").catch(error => {
+    console.warn("Service worker registration failed:", error);
+  });
+}
+
+/* Start the app. */
+updateLanguage();
+initializeAuthentication();
 </script>
-</body></html>
+
+</body>
+</html>
