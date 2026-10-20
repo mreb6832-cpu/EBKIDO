@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f5efff">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#f5efff"
+  >
 
   <title>My Account | EBKIDO</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -15,55 +25,81 @@
     body {
       margin: 0;
       min-height: 100vh;
+
       font-family: Arial, sans-serif;
+
       color: #30234b;
-      background: linear-gradient(
-        135deg,
-        #f5efff,
-        #e5fbf4,
-        #fff2e8
-      );
+
+      background:
+        linear-gradient(
+          135deg,
+          #f5efff,
+          #e5fbf4,
+          #fff2e8
+        );
     }
 
     header {
-      background: rgba(255,255,255,.9);
+      background: rgba(255,255,255,.94);
+
       border-bottom: 1px solid #eee5fa;
+
       padding: 16px 22px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       gap: 15px;
+
       position: sticky;
       top: 0;
+
       z-index: 10;
     }
 
     .logo {
       color: #7654d6;
+
       font-size: 25px;
       font-weight: 800;
     }
 
     .logout-btn {
       border: 0;
+
       background: #ffe8e8;
       color: #a33a3a;
+
       padding: 10px 16px;
+
       border-radius: 12px;
+
       font-weight: bold;
+
       cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background: #ffdada;
     }
 
     main {
       width: min(1000px, 92%);
+
       margin: 35px auto;
     }
 
     .welcome {
       background: white;
+
       border-radius: 28px;
+
       padding: 30px;
-      box-shadow: 0 12px 35px rgba(70,50,100,.08);
+
+      box-shadow:
+        0 12px 35px rgba(70,50,100,.08);
+
       margin-bottom: 25px;
     }
 
@@ -73,27 +109,39 @@
 
     h1 {
       margin: 10px 0;
-      font-size: clamp(28px, 5vw, 42px);
+
+      font-size:
+        clamp(28px, 5vw, 42px);
     }
 
     .email {
       color: #776e88;
+
       word-break: break-word;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 18px;
+
       margin-bottom: 25px;
     }
 
     .stat {
       background: white;
+
       border-radius: 22px;
+
       padding: 25px;
+
       text-align: center;
-      box-shadow: 0 10px 30px rgba(70,50,100,.07);
+
+      box-shadow:
+        0 10px 30px rgba(70,50,100,.07);
     }
 
     .stat-icon {
@@ -102,22 +150,31 @@
 
     .stat-number {
       display: block;
+
       margin-top: 8px;
+
       font-size: 30px;
+
       font-weight: 800;
+
       color: #7654d6;
     }
 
     .stat-label {
       color: #776e88;
+
       margin-top: 5px;
     }
 
     .learning {
       background: white;
+
       border-radius: 25px;
+
       padding: 28px;
-      box-shadow: 0 10px 30px rgba(70,50,100,.07);
+
+      box-shadow:
+        0 10px 30px rgba(70,50,100,.07);
     }
 
     .learning h2 {
@@ -126,45 +183,91 @@
 
     .subjects {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
       gap: 15px;
+
       margin-top: 20px;
     }
 
     .subject {
       border: 0;
+
       border-radius: 18px;
+
       padding: 20px;
+
       background: #f8f3ff;
+
       color: #30234b;
+
       font-size: 17px;
+
       font-weight: bold;
+
       cursor: pointer;
+
       text-align: left;
+
+      transition:
+        transform .15s ease,
+        background .15s ease;
     }
 
     .subject:hover {
       transform: translateY(-2px);
+
+      background: #f1eaff;
     }
 
     .subject span {
       display: block;
+
       font-size: 30px;
+
       margin-bottom: 8px;
     }
 
     .home {
       display: inline-block;
+
       margin-top: 25px;
+
       color: #6845c3;
+
       font-weight: bold;
+
       text-decoration: none;
     }
 
     #loading {
       text-align: center;
-      padding: 60px 20px;
+
+      padding: 70px 20px;
+
       font-size: 20px;
+    }
+
+    #error {
+      display: none;
+
+      width: min(600px, 90%);
+
+      margin: 40px auto;
+
+      padding: 20px;
+
+      border-radius: 16px;
+
+      background: #fff0f0;
+
+      color: #a33a3a;
+
+      line-height: 1.5;
+
+      text-align: center;
     }
 
     #app {
@@ -172,6 +275,7 @@
     }
 
     @media (max-width: 650px) {
+
       .stats {
         grid-template-columns: 1fr;
       }
@@ -186,6 +290,7 @@
 
       main {
         width: 94%;
+
         margin: 22px auto;
       }
 
@@ -193,35 +298,59 @@
       .learning {
         padding: 22px;
       }
+
     }
+
   </style>
 </head>
+
 
 <body>
 
   <header>
-    <div class="logo">🌈 EBKIDO</div>
 
-    <button class="logout-btn" id="logoutButton">
+    <div class="logo">
+      🌈 EBKIDO
+    </div>
+
+    <button
+      class="logout-btn"
+      id="logoutButton"
+    >
       Log out
     </button>
+
   </header>
+
 
   <div id="loading">
     🔄 Loading your account...
   </div>
 
+
+  <div id="error"></div>
+
+
   <main id="app">
 
     <section class="welcome">
 
-      <div class="welcome-icon">🦊📚</div>
+      <div class="welcome-icon">
+        🦊📚
+      </div>
 
       <h1>
-        Hello, <span id="userName">Learner</span>! 👋
+        Hello,
+        <span id="userName">
+          Learner
+        </span>
+       ! 👋
       </h1>
 
-      <p class="email" id="userEmail"></p>
+      <p
+        class="email"
+        id="userEmail"
+      ></p>
 
       <p>
         Welcome to your EBKIDO learning adventure.
@@ -230,66 +359,135 @@
 
     </section>
 
+
     <section class="stats">
 
       <div class="stat">
-        <div class="stat-icon">⭐</div>
-        <span class="stat-number" id="stars">0</span>
-        <div class="stat-label">Stars</div>
+
+        <div class="stat-icon">
+          ⭐
+        </div>
+
+        <span
+          class="stat-number"
+          id="stars"
+        >
+          0
+        </span>
+
+        <div class="stat-label">
+          Stars
+        </div>
+
       </div>
 
-      <div class="stat">
-        <div class="stat-icon">📚</div>
-        <span class="stat-number" id="lessons">0</span>
-        <div class="stat-label">Lessons completed</div>
-      </div>
 
       <div class="stat">
-        <div class="stat-icon">🏆</div>
-        <span class="stat-number" id="level">1</span>
-        <div class="stat-label">Level</div>
+
+        <div class="stat-icon">
+          📚
+        </div>
+
+        <span
+          class="stat-number"
+          id="lessons"
+        >
+          0
+        </span>
+
+        <div class="stat-label">
+          Lessons completed
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          🏆
+        </div>
+
+        <span
+          class="stat-number"
+          id="level"
+        >
+          1
+        </span>
+
+        <div class="stat-label">
+          Level
+        </div>
+
       </div>
 
     </section>
 
+
     <section class="learning">
 
-      <h2>🎓 Continue Learning</h2>
+      <h2>
+        🎓 Continue Learning
+      </h2>
 
       <p>
         Choose something you want to learn today.
       </p>
 
+
       <div class="subjects">
 
-        <button class="subject" onclick="openLesson('letters')">
+        <button
+          class="subject"
+          onclick="openLesson('letters')"
+        >
           <span>🔤</span>
           Letters
         </button>
 
-        <button class="subject" onclick="openLesson('numbers')">
+
+        <button
+          class="subject"
+          onclick="openLesson('numbers')"
+        >
           <span>🔢</span>
           Numbers
         </button>
 
-        <button class="subject" onclick="openLesson('animals')">
+
+        <button
+          class="subject"
+          onclick="openLesson('animals')"
+        >
           <span>🐶</span>
           Animals
         </button>
 
-        <button class="subject" onclick="openLesson('colors')">
+
+        <button
+          class="subject"
+          onclick="openLesson('colors')"
+        >
           <span>🎨</span>
           Colors
         </button>
 
-        <button class="subject" onclick="openLesson('shapes')">
+
+        <button
+          class="subject"
+          onclick="openLesson('shapes')"
+        >
           <span>🔺</span>
           Shapes
         </button>
 
       </div>
 
-      <a class="home" href="index.html">
+
+      <a
+        class="home"
+        href="index.html"
+      >
         ← Back to EBKIDO
       </a>
 
@@ -297,125 +495,274 @@
 
   </main>
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Supabase library -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
+
+
+  <!-- EBKIDO Supabase connection -->
 
   <script src="supabaseClient.js"></script>
 
+
   <script>
 
-    const loading = document.getElementById("loading");
-    const app = document.getElementById("app");
+    const loading =
+      document.getElementById("loading");
 
-    const userName = document.getElementById("userName");
-    const userEmail = document.getElementById("userEmail");
+    const app =
+      document.getElementById("app");
 
-    const starsElement = document.getElementById("stars");
-    const lessonsElement = document.getElementById("lessons");
-    const levelElement = document.getElementById("level");
+    const errorBox =
+      document.getElementById("error");
+
+
+    const userName =
+      document.getElementById("userName");
+
+    const userEmail =
+      document.getElementById("userEmail");
+
+    const starsElement =
+      document.getElementById("stars");
+
+    const lessonsElement =
+      document.getElementById("lessons");
+
+    const levelElement =
+      document.getElementById("level");
+
+
+    function showError(message) {
+
+      loading.style.display = "none";
+
+      errorBox.textContent = message;
+
+      errorBox.style.display = "block";
+
+    }
+
 
     async function loadAccount() {
 
       try {
 
-        const {
-          data: { user },
-          error
-        } = await supabaseClient.auth.getUser();
+        /*
+          Get the currently logged-in user.
+        */
 
-        if (error) {
-          throw error;
+        const {
+          data: {
+            user
+          },
+          error: userError
+        } =
+          await supabaseClient.auth.getUser();
+
+
+        if (userError) {
+          throw userError;
         }
+
+
+        /*
+          No logged-in user.
+        */
 
         if (!user) {
 
-          window.location.href = "login.html";
+          window.location.href =
+            "login.html";
+
           return;
 
         }
 
-        const metadata = user.user_metadata || {};
+
+        /*
+          User information.
+        */
+
+        const metadata =
+          user.user_metadata || {};
+
 
         const name =
           metadata.parent_name ||
           metadata.name ||
           "Learner";
 
-        userName.textContent = name;
+
+        userName.textContent =
+          name;
+
 
         userEmail.textContent =
           user.email || "";
 
-        /*
-          Temporary local progress.
 
-          Later we will move this to Supabase
-          so the progress can follow the user
-          across phone, tablet and laptop.
+        /*
+          Get profile from Supabase.
         */
 
-        const stars =
-          Number(localStorage.getItem("ebkido_stars") || 0);
+        const {
+          data: profile,
+          error: profileError
+        } =
+          await supabaseClient
+            .from("profiles")
+            .select(
+              "display_name, stars, lessons_completed, level"
+            )
+            .eq("id", user.id)
+            .maybeSingle();
 
-        const lessons =
-          Number(localStorage.getItem("ebkido_lessons") || 0);
 
-        const level =
-          Math.max(1, Math.floor(stars / 10) + 1);
+        if (profileError) {
+          throw profileError;
+        }
 
-        starsElement.textContent = stars;
-        lessonsElement.textContent = lessons;
-        levelElement.textContent = level;
+
+        /*
+          Profile should normally exist
+          because our database trigger
+          creates it when the account is created.
+        */
+
+        if (!profile) {
+
+          const {
+            data: newProfile,
+            error: createError
+          } =
+            await supabaseClient
+              .from("profiles")
+              .insert({
+                id: user.id,
+
+                display_name:
+                  name,
+
+                stars: 0,
+
+                lessons_completed: 0,
+
+                level: 1
+              })
+              .select()
+              .single();
+
+
+          if (createError) {
+            throw createError;
+          }
+
+
+          displayProfile(newProfile);
+
+        } else {
+
+          displayProfile(profile);
+
+        }
+
 
         loading.style.display = "none";
+
         app.style.display = "block";
+
 
       } catch (error) {
 
         console.error(error);
 
-        loading.textContent =
-          "Could not load your account. Please log in again.";
-
-        setTimeout(() => {
-          window.location.href = "login.html";
-        }, 2000);
+        showError(
+          "We could not load your account. " +
+          "Please log in again."
+        );
 
       }
 
     }
 
+
+    function displayProfile(profile) {
+
+      const stars =
+        Number(profile.stars || 0);
+
+      const lessons =
+        Number(profile.lessons_completed || 0);
+
+      const level =
+        Number(profile.level || 1);
+
+
+      if (profile.display_name) {
+
+        userName.textContent =
+          profile.display_name;
+
+      }
+
+
+      starsElement.textContent =
+        stars;
+
+      lessonsElement.textContent =
+        lessons;
+
+      levelElement.textContent =
+        level;
+
+    }
+
+
+    /*
+      LOG OUT
+    */
+
     document
       .getElementById("logoutButton")
-      .addEventListener("click", async () => {
+      .addEventListener(
+        "click",
+        async () => {
 
-        const {
-          error
-        } = await supabaseClient.auth.signOut();
+          const {
+            error
+          } =
+            await supabaseClient.auth
+              .signOut();
 
-        if (error) {
 
-          alert(
-            error.message ||
-            "Could not log out."
-          );
+          if (error) {
 
-          return;
+            alert(
+              error.message ||
+              "Could not log out."
+            );
+
+            return;
+
+          }
+
+
+          window.location.href =
+            "login.html";
+
         }
+      );
 
-        window.location.href = "login.html";
 
-      });
-
+    /*
+      Learning buttons.
+    */
 
     function openLesson(subject) {
-
-      /*
-        For now we return to index.html.
-
-        In the next stage we will create
-        the real learning lessons.
-      */
 
       window.location.href =
         "index.html#" + subject;
@@ -423,9 +770,14 @@
     }
 
 
+    /*
+      Start.
+    */
+
     loadAccount();
 
   </script>
 
 </body>
+
 </html>
