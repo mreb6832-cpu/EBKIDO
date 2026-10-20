@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5efff">
+  <title>Create Account | EBKIDO</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      font-family: Arial, sans-serif;
+      color: #30234b;
+      background: linear-gradient(135deg, #f5efff, #e5fbf4, #fff2e8);
+    }
+
+    .card {
+      width: 100%;
+      max-width: 440px;
+      padding: 30px;
+      border-radius: 25px;
+      background: white;
+      box-shadow: 0 12px 40px #48366b15;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 800;
+      color: #7654d6;
+    }
+
+    .emoji { text-align: center; font-size: 50px; margin: 12px; }
+    h1, .intro { text-align: center; }
+    .intro { color: #766d88; line-height: 1.5; }
+
+    label {
+      display: block;
+      margin: 15px 0 7px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd5ed;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    input:focus { outline: 2px solid #bca8ff; }
+
+    .note {
+      margin-top: 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #766d88;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      border: 0;
+      border-radius: 13px;
+      background: #7654d6;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled { opacity: .6; }
+
+    #message {
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .links { text-align: center; margin-top: 20px; line-height: 2; }
+    a { color: #6845c3; }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <div class="logo">🌈 EBKIDO</div>
+    <div class="emoji">🦊✨</div>
+
+    <h1>Create your account</h1>
+    <p class="intro">Start a fun learning adventure in four languages!</p>
+
+    <form id="registerForm">
+      <label for="name">Parent or guardian name</label>
+      <input id="name" type="text" autocomplete="name"
+        maxlength="80" required>
+
+      <label for="email">Email address</label>
+      <input id="email" type="email" autocomplete="email"
+        maxlength="254" required>
+
+      <label for="password">Create a password</label>
+      <input id="password" type="password"
+        autocomplete="new-password" minlength="8" required>
+
+      <label for="confirmPassword">Confirm password</label>
+      <input id="confirmPassword" type="password"
+        autocomplete="new-password" minlength="8" required>
+
+      <p class="note">
+        A parent or guardian should manage the account and help the child
+        use the app safely.
+      </p>
+
+      <button id="registerButton" type="submit">
+        Create account 🎉
+      </button>
+    </form>
+
+    <p id="message" role="status" aria-live="polite"></p>
+
+    <div class="links">
+      <a href="login.html">Already have an account? Log in</a>
+      <br>
+      <a href="index.html">← Back to EBKIDO</a>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+
+  <script>
+    const form = document.getElementById("registerForm");
+    const message = document.getElementById("message");
+    const button = document.getElementById("registerButton");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      message.textContent = "";
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+      if (password.length < 8) {
+        message.textContent = "Use a password with at least 8 characters.";
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        message.textContent = "The passwords do not match.";
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Creating account...";
+
+      try {
+        const { data, error } = await supabaseClient.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { parent_name: name },
+            emailRedirectTo: window.location.origin +
+              window.location.pathname.replace(/register\.html$/, "account.html")
+          }
+        });
+
+        if (error) throw error;
+
+        if (data.session) {
+          window.location.href = "account.html";
+        } else {
+          message.textContent =
+            "Registration submitted! Check your email for a verification link, then log in.";
+          form.reset();
+        }
+      } catch (error) {
+        message.textContent =
+          error.message || "Registration failed. Please try again.";
+      } finally {
+        button.disabled = false;
+        button.textContent = "Create account 🎉";
+      }
+    });
+  </script>
+</body>
+</html>
