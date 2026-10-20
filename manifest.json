@@ -1,6 +1,6 @@
 {
-  "name": "Kido — Learn & Play",
-  "short_name": "Kido",
+  "name": "EBKIDO — Learn & Play",
+  "short_name": "EBKIDO",
   "description": "A playful learning app for children aged 5–10 in Kinyarwanda, Swedish, English and French.",
   "start_url": "./",
   "scope": "./",
@@ -8,7 +8,15 @@
   "background_color": "#f7f7ff",
   "theme_color": "#6c63ff",
   "icons": [
-    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
-    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
