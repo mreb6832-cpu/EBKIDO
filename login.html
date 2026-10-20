@@ -1,0 +1,703 @@
+ebkido
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5efff">
+
+  <title>Login | EBKIDO</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-family: Arial, sans-serif;
+      color: #30234b;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f5efff 0%,
+          #e5fbf4 50%,
+          #fff2e8 100%
+        );
+    }
+
+    .card {
+      width: 100%;
+      max-width: 430px;
+
+      background: #ffffff;
+      padding: 32px;
+
+      border-radius: 28px;
+
+      box-shadow:
+        0 18px 50px rgba(70, 50, 100, 0.12);
+    }
+
+    .logo {
+      text-align: center;
+      color: #7654d6;
+
+      font-size: 34px;
+      font-weight: 800;
+
+      margin-bottom: 8px;
+    }
+
+    .mascot {
+      text-align: center;
+      font-size: 58px;
+      margin: 8px 0 15px;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 0 0 8px;
+
+      font-size: 28px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #776e88;
+
+      line-height: 1.5;
+      margin-bottom: 26px;
+    }
+
+    label {
+      display: block;
+
+      margin: 16px 0 7px;
+
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+
+      padding: 14px 15px;
+
+      border: 1px solid #ddd5ed;
+      border-radius: 13px;
+
+      font-size: 16px;
+
+      background: #fff;
+    }
+
+    input:focus {
+      outline: none;
+
+      border-color: #7654d6;
+
+      box-shadow:
+        0 0 0 3px rgba(118, 84, 214, 0.12);
+    }
+
+    .password-row {
+      position: relative;
+    }
+
+    .password-row input {
+      padding-right: 80px;
+    }
+
+    .show-password {
+      position: absolute;
+
+      right: 10px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      border: 0;
+      background: transparent;
+
+      color: #7654d6;
+
+      font-weight: 700;
+      cursor: pointer;
+
+      padding: 7px;
+    }
+
+    .login-button {
+      width: 100%;
+
+      border: 0;
+      border-radius: 14px;
+
+      padding: 15px;
+
+      margin-top: 22px;
+
+      background: #7654d6;
+      color: white;
+
+      font-size: 17px;
+      font-weight: 800;
+
+      cursor: pointer;
+    }
+
+    .login-button:hover {
+      background: #6747c4;
+    }
+
+    .login-button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    .message {
+      display: none;
+
+      margin-top: 18px;
+      padding: 13px;
+
+      border-radius: 12px;
+
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .message.error {
+      display: block;
+
+      background: #fff0f0;
+      color: #a33a3a;
+    }
+
+    .message.success {
+      display: block;
+
+      background: #eafaf2;
+      color: #26734d;
+    }
+
+    .forgot {
+      display: block;
+
+      text-align: center;
+
+      margin-top: 18px;
+
+      color: #6845c3;
+
+      font-weight: 700;
+
+      text-decoration: none;
+
+      cursor: pointer;
+    }
+
+    .register {
+      text-align: center;
+
+      margin-top: 22px;
+
+      color: #776e88;
+    }
+
+    .register a {
+      color: #6845c3;
+
+      font-weight: 800;
+
+      text-decoration: none;
+    }
+
+    .home {
+      display: block;
+
+      text-align: center;
+
+      margin-top: 22px;
+
+      color: #6845c3;
+
+      font-weight: 700;
+
+      text-decoration: none;
+    }
+
+    .small-note {
+      text-align: center;
+
+      margin-top: 20px;
+
+      color: #9991a7;
+
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+
+      body {
+        padding: 14px;
+      }
+
+      .card {
+        padding: 25px 20px;
+        border-radius: 22px;
+      }
+
+      .logo {
+        font-size: 30px;
+      }
+
+      .mascot {
+        font-size: 50px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="card">
+
+    <div class="logo">
+      🌈 EBKIDO
+    </div>
+
+    <div class="mascot">
+      🦊📚
+    </div>
+
+    <h1>
+      Welcome back! 👋
+    </h1>
+
+    <p class="subtitle">
+      Log in and continue your learning adventure.
+    </p>
+
+    <form id="loginForm">
+
+      <label for="email">
+        Email address
+      </label>
+
+      <input
+        id="email"
+        type="email"
+        placeholder="you@example.com"
+        autocomplete="email"
+        required
+      >
+
+      <label for="password">
+        Password
+      </label>
+
+      <div class="password-row">
+
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          minlength="6"
+          required
+        >
+
+        <button
+          type="button"
+          class="show-password"
+          id="showPassword"
+        >
+          Show
+        </button>
+
+      </div>
+
+      <button
+        type="submit"
+        class="login-button"
+        id="loginButton"
+      >
+        Log in 🚀
+      </button>
+
+    </form>
+
+    <div
+      id="message"
+      class="message"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+    <a
+      href="#"
+      class="forgot"
+      id="forgotPassword"
+    >
+      Forgot your password?
+    </a>
+
+    <div class="register">
+      Don't have an account?
+      <a href="register.html">
+        Create one
+      </a>
+    </div>
+
+    <a
+      href="index.html"
+      class="home"
+    >
+      ← Back to EBKIDO
+    </a>
+
+    <div class="small-note">
+      EBKIDO helps children learn through fun,
+      simple activities.
+    </div>
+
+  </main>
+
+
+  <!-- Supabase library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Your Supabase connection -->
+  <script src="supabaseClient.js"></script>
+
+
+  <script>
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const emailInput =
+      document.getElementById("email");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const loginButton =
+      document.getElementById("loginButton");
+
+    const message =
+      document.getElementById("message");
+
+    const showPassword =
+      document.getElementById("showPassword");
+
+    const forgotPassword =
+      document.getElementById("forgotPassword");
+
+
+    function showMessage(text, type) {
+
+      message.textContent = text;
+
+      message.className =
+        "message " + type;
+    }
+
+
+    /*
+      SHOW / HIDE PASSWORD
+    */
+
+    showPassword.addEventListener(
+      "click",
+      () => {
+
+        if (passwordInput.type === "password") {
+
+          passwordInput.type = "text";
+
+          showPassword.textContent = "Hide";
+
+        } else {
+
+          passwordInput.type = "password";
+
+          showPassword.textContent = "Show";
+
+        }
+
+      }
+    );
+
+
+    /*
+      LOGIN
+    */
+
+    loginForm.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+        showMessage("", "");
+
+        const email =
+          emailInput.value.trim();
+
+        const password =
+          passwordInput.value;
+
+
+        if (!email || !password) {
+
+          showMessage(
+            "Please enter your email and password.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        loginButton.disabled = true;
+
+        loginButton.textContent =
+          "Logging in...";
+
+
+        try {
+
+          const {
+            data,
+            error
+          } =
+            await supabaseClient.auth
+              .signInWithPassword({
+                email: email,
+                password: password
+              });
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          if (!data.session) {
+
+            showMessage(
+              "Login was not completed. Please try again.",
+              "error"
+            );
+
+            return;
+          }
+
+
+          showMessage(
+            "Login successful! 🚀",
+            "success"
+          );
+
+
+          setTimeout(() => {
+
+            window.location.href =
+              "account.html";
+
+          }, 700);
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          let text =
+            error.message ||
+            "Login failed. Please try again.";
+
+
+          if (
+            text.toLowerCase()
+              .includes("email not confirmed")
+          ) {
+
+            text =
+              "Please verify your email before logging in.";
+
+          }
+
+
+          if (
+            text.toLowerCase()
+              .includes("invalid login credentials")
+          ) {
+
+            text =
+              "Email or password is incorrect.";
+
+          }
+
+
+          showMessage(
+            text,
+            "error"
+          );
+
+
+        } finally {
+
+          loginButton.disabled = false;
+
+          loginButton.textContent =
+            "Log in 🚀";
+
+        }
+
+      }
+    );
+
+
+    /*
+      FORGOT PASSWORD
+    */
+
+    forgotPassword.addEventListener(
+      "click",
+      async (event) => {
+
+        event.preventDefault();
+
+        const email =
+          emailInput.value.trim();
+
+
+        if (!email) {
+
+          showMessage(
+            "Enter your email address first.",
+            "error"
+          );
+
+          emailInput.focus();
+
+          return;
+        }
+
+
+        forgotPassword.textContent =
+          "Sending reset email...";
+
+
+        try {
+
+          const redirectUrl =
+            window.location.origin +
+            window.location.pathname
+              .replace(
+                "login.html",
+                "reset-password.html"
+              );
+
+
+          const {
+            error
+          } =
+            await supabaseClient.auth
+              .resetPasswordForEmail(
+                email,
+                {
+                  redirectTo: redirectUrl
+                }
+              );
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          showMessage(
+            "Check your email for the password reset link.",
+            "success"
+          );
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          showMessage(
+            error.message ||
+            "Could not send the reset email.",
+            "error"
+          );
+
+
+        } finally {
+
+          forgotPassword.textContent =
+            "Forgot your password?";
+
+        }
+
+      }
+    );
+
+
+    /*
+      IF USER IS ALREADY LOGGED IN,
+      SEND THEM TO ACCOUNT PAGE.
+    */
+
+    async function checkExistingSession() {
+
+      try {
+
+        const {
+          data
+        } =
+          await supabaseClient.auth
+            .getSession();
+
+
+        if (data.session) {
+
+          window.location.href =
+            "account.html";
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Session check failed:",
+          error
+        );
+
+      }
+
+    }
+
+
+    checkExistingSession();
+
+  </script>
+
+</body>
+</html>
