@@ -1,63 +1,392 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#6c63ff">
-<meta name="description" content="Kido is a fun learning app for children aged 5–10. Learn letters, numbers, colors, animals, and shapes in Kinyarwanda, Swedish, English, and French.">
-<link rel="manifest" href="manifest.json">
-<title>Kido — Learn & Play</title>
-<style>
-:root{--purple:#6c63ff;--ink:#25234a;--bg:#f7f7ff;--card:#fff;--pink:#ff7eb6;--yellow:#ffd166;--green:#65d6a5}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
-header{padding:22px 16px 28px;background:linear-gradient(135deg,#6c63ff,#a18aff);color:white;border-radius:0 0 28px 28px}
-.top{max-width:1000px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.logo{font-size:2rem;font-weight:900;letter-spacing:-1px}.tag{opacity:.95}
-select,button{font:inherit;border:0;border-radius:14px;padding:12px 14px;cursor:pointer}
-select{background:white;color:var(--ink);max-width:100%}
-main{max-width:1000px;margin:22px auto;padding:0 16px}
-.welcome{background:#fff;border-radius:22px;padding:20px;box-shadow:0 8px 24px #29226b10;margin-top:-4px}
-h1{font-size:clamp(1.5rem,4vw,2.3rem);margin:0 0 8px}p{line-height:1.5}
-.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:12px;margin:18px 0}
-.cat{min-height:112px;background:white;border-radius:20px;padding:16px;text-align:center;box-shadow:0 5px 18px #25234a0c;color:var(--ink);font-weight:750;border:2px solid transparent}
-.cat span{display:block;font-size:2rem;margin-bottom:6px}.cat.active{border-color:var(--purple);background:#f0efff}
-.panel{background:white;border-radius:24px;padding:22px;box-shadow:0 8px 24px #29226b10;text-align:center}
-.prompt{font-size:clamp(1.25rem,4vw,2rem);font-weight:850;margin:4px}
-.big{font-size:clamp(4rem,13vw,7rem);margin:12px}
-.answer-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0}
-.answer{background:#f0efff;color:var(--ink);font-weight:750;min-width:100px}.primary{background:var(--purple);color:white;font-weight:800}.secondary{background:#f1f1fa;color:var(--ink)}
-.feedback{min-height:32px;font-weight:800;margin-top:10px}.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}.stat{flex:1;background:#fff;border-radius:16px;padding:14px;text-align:center;min-width:120px}.stat strong{display:block;font-size:1.5rem}
-footer{text-align:center;padding:24px;color:#777}
-button:focus-visible,select:focus-visible{outline:3px solid #ffbf47;outline-offset:3px}
-@media(min-width:720px){.layout{display:grid;grid-template-columns:1fr 1.25fr;gap:18px;align-items:start}.categories{grid-template-columns:repeat(2,1fr)}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#7965d8">
+  <title>EBKIDO - Learn, Play, Grow</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fbfaff;
+      color: #302d49;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 6%;
+      background: white;
+      border-bottom: 1px solid #eeeafa;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      color: #5140a8;
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    select {
+      padding: 10px;
+      border: 1px solid #ddd5f7;
+      border-radius: 10px;
+      background: white;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 24px;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 40px;
+      border-radius: 28px;
+      background: linear-gradient(120deg, #e9e2ff, #ffe6d7);
+    }
+
+    h1 {
+      font-size: clamp(30px, 5vw, 48px);
+      margin: 12px 0;
+    }
+
+    .hero p { line-height: 1.6; }
+
+    .hero-art {
+      font-size: clamp(65px, 12vw, 120px);
+      text-align: center;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 20px;
+      border: 0;
+      border-radius: 14px;
+      background: #7965d8;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .section-title { margin-top: 38px; }
+
+    .topics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 15px;
+    }
+
+    .topic {
+      min-height: 150px;
+      padding: 20px;
+      border: 0;
+      border-radius: 22px;
+      color: #302d49;
+      text-align: left;
+      font-size: 17px;
+      cursor: pointer;
+      transition: transform .2s;
+    }
+
+    .topic:hover { transform: translateY(-4px); }
+    .topic span { display: block; font-size: 38px; margin-bottom: 12px; }
+    .topic small { display: block; margin-top: 8px; }
+
+    .purple { background: #e9e2ff; }
+    .green { background: #dff7eb; }
+    .peach { background: #ffe6d7; }
+    .yellow { background: #fff1b9; }
+    .blue { background: #dcecff; }
+
+    #quiz {
+      margin-top: 25px;
+      padding: 25px;
+      background: white;
+      border: 1px solid #eeeafa;
+      border-radius: 24px;
+    }
+
+    #answers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+    }
+
+    .answer {
+      padding: 15px;
+      border: 2px solid #eeeafa;
+      border-radius: 14px;
+      background: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .correct { background: #dff7eb; border-color: #65bf94; }
+    .wrong { background: #ffe6d7; border-color: #e69b7a; }
+
+    #feedback {
+      min-height: 30px;
+      font-weight: bold;
+      margin: 18px 0;
+    }
+
+    .hidden { display: none; }
+
+    footer {
+      padding: 25px;
+      margin-top: 35px;
+      text-align: center;
+      color: #77748b;
+    }
+
+    @media (max-width: 600px) {
+      main { padding: 15px; }
+      .hero { padding: 24px; flex-direction: column; align-items: flex-start; }
+      .hero-art { align-self: center; }
+    }
+  </style>
 </head>
 <body>
-<header><div class="top"><div><div class="logo">🌈 Kido</div><div class="tag" id="tagline">Learn a little. Grow a lot!</div></div><label><span id="languageLabel">Language</span> <select id="language" aria-label="Choose language"><option value="en">🇬🇧 English</option><option value="rw">🇷🇼 Kinyarwanda</option><option value="sv">🇸🇪 Svenska</option><option value="fr">🇫🇷 Français</option></select></label></div></header>
+
+<header>
+  <div class="brand">🌈 EBKIDO</div>
+  <select id="language" aria-label="Choose language">
+    <option value="en">English</option>
+    <option value="rw">Kinyarwanda</option>
+    <option value="sv">Svenska</option>
+    <option value="fr">Français</option>
+  </select>
+</header>
+
 <main>
-<section class="welcome"><h1 id="welcomeTitle">Hello, little learner! 👋</h1><p id="welcomeText">Choose a topic, listen, look, and play. Made for children aged 5–10.</p></section>
-<div class="layout"><nav class="categories" aria-label="Learning topics" id="categories"></nav>
-<section class="panel" aria-live="polite"><div class="prompt" id="prompt">What number is this?</div><div class="big" id="picture">1️⃣</div><div class="answer-row" id="answers"></div><button class="primary" id="listen">🔊 Listen</button> <button class="secondary" id="next">➡️ Next</button><div class="feedback" id="feedback"></div></section></div>
-<div class="stats"><div class="stat">⭐ <strong id="stars">0</strong><span id="starsLabel">Stars earned</span></div><div class="stat">✅ <strong id="correct">0</strong><span id="correctLabel">Correct answers</span></div></div>
-</main><footer>Made with ❤️ for curious kids · Kido</footer>
+  <section class="hero">
+    <div>
+      <p id="eyebrow">A HAPPY PLACE TO LEARN</p>
+      <h1 id="heroTitle">Big discoveries start with little steps!</h1>
+      <p id="heroText">Learn letters, numbers, animals, colours and shapes through fun quizzes.</p>
+      <a class="button" href="#lessons" id="startButton">Let's learn!</a>
+      <p>⭐ <span id="stars">0</span> stars</p>
+    </div>
+    <div class="hero-art">🧸🌈</div>
+  </section>
+
+  <h2 class="section-title" id="chooseTitle">What shall we learn today?</h2>
+
+  <section class="topics" id="lessons">
+    <button class="topic purple" onclick="startQuiz('letters')">
+      <span>🔤</span><strong id="letters">Letters</strong>
+      <small>ABC</small>
+    </button>
+    <button class="topic green" onclick="startQuiz('numbers')">
+      <span>🔢</span><strong id="numbers">Numbers</strong>
+      <small>1, 2, 3</small>
+    </button>
+    <button class="topic peach" onclick="startQuiz('animals')">
+      <span>🐼</span><strong id="animals">Animals</strong>
+      <small>Animal friends</small>
+    </button>
+    <button class="topic yellow" onclick="startQuiz('colors')">
+      <span>🎨</span><strong id="colors">Colours</strong>
+      <small>Discover colours</small>
+    </button>
+    <button class="topic blue" onclick="startQuiz('shapes')">
+      <span>🔺</span><strong id="shapes">Shapes</strong>
+      <small>Circle, square...</small>
+    </button>
+  </section>
+
+  <section id="quiz" class="hidden">
+    <h2 id="question">Question</h2>
+    <div id="answers"></div>
+    <div id="feedback" aria-live="polite"></div>
+    <button id="nextButton" class="button hidden" onclick="nextQuestion()">Next</button>
+    <button class="button" onclick="closeQuiz()" style="background:#aaa">Close</button>
+  </section>
+</main>
+
+<footer>© 2026 EBKIDO · Learn · Play · Grow</footer>
+
 <script>
-const ui={
-en:{tag:"Learn a little. Grow a lot!",language:"Language",welcome:"Hello, little learner! 👋",intro:"Choose a topic, listen, look, and play. Made for children aged 5–10.",stars:"Stars earned",correct:"Correct answers",listen:"🔊 Listen",next:"➡️ Next",topics:["Numbers","Letters","Colors","Animals","Shapes","Quiz"],question:"What is this?",number:"What number is this?",letter:"Which letter is this?",color:"Which color is this?",animal:"Which animal is this?",shape:"Which shape is this?",quiz:"Choose the correct answer!",great:"Great job! ⭐",try:"Good try! Let's learn together.",numberNames:["zero","one","two","three","four","five","six","seven","eight","nine","ten"],letterNames:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),colorNames:["red","blue","yellow","green","orange","purple"],animalNames:["cat","dog","cow","lion","fish","bird"],shapeNames:["circle","square","triangle","star","heart","rectangle"]},
-rw:{tag:"Iga buhoro, utere imbere!",language:"Ururimi",welcome:"Muraho mwana mwiza! 👋",intro:"Hitamo isomo, umva, urebe kandi ukine. Bigenewe abana b’imyaka 5–10.",stars:"Inyenyeri wabonye",correct:"Ibisubizo nyabyo",listen:"🔊 Umva",next:"➡️ Ibikurikira",topics:["Imibare","Inyuguti","Amabara","Inyamaswa","Imiterere","Ikibazo"],question:"Ibi ni iki?",number:"Iyi ni iyihe mibare?",letter:"Iyi ni iyihe nyuguti?",color:"Iri ni irihe bara?",animal:"Iyi ni iyihe nyamaswa?",shape:"Iyi ni iyihe shusho?",quiz:"Hitamo igisubizo nyacyo!",great:"Ni byiza cyane! ⭐",try:"Gerageza nanone, dukomeze kwiga.",numberNames:["zeru","rimwe","kabiri","gatatu","kane","gatanu","gatandatu","karindwi","umunani","icyenda","icumi"],letterNames:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),colorNames:["umutuku","ubururu","umuhondo","icyatsi","icunga","ikijuju"],animalNames:["injangwe","imbwa","inka","intare","ifi","inyoni"],shapeNames:["uruziga","kare","mpandeshatu","inyenyeri","umutima","urukiramende"]},
-sv:{tag:"Lär lite. Väx mycket!",language:"Språk",welcome:"Hej, lilla lärling! 👋",intro:"Välj ett ämne, lyssna, titta och lek. För barn 5–10 år.",stars:"Intjänade stjärnor",correct:"Rätta svar",listen:"🔊 Lyssna",next:"➡️ Nästa",topics:["Siffror","Bokstäver","Färger","Djur","Former","Quiz"],question:"Vad är det här?",number:"Vilket tal är det här?",letter:"Vilken bokstav är det här?",color:"Vilken färg är det här?",animal:"Vilket djur är det här?",shape:"Vilken form är det här?",quiz:"Välj rätt svar!",great:"Bra jobbat! ⭐",try:"Bra försök! Vi lär oss tillsammans.",numberNames:["noll","ett","två","tre","fyra","fem","sex","sju","åtta","nio","tio"],letterNames:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),colorNames:["röd","blå","gul","grön","orange","lila"],animalNames:["katt","hund","ko","lejon","fisk","fågel"],shapeNames:["cirkel","fyrkant","triangel","stjärna","hjärta","rektangel"]},
-fr:{tag:"Apprends un peu. Grandis beaucoup !",language:"Langue",welcome:"Bonjour, petit apprenant ! 👋",intro:"Choisis un sujet, écoute, regarde et joue. Pour les enfants de 5 à 10 ans.",stars:"Étoiles gagnées",correct:"Bonnes réponses",listen:"🔊 Écouter",next:"➡️ Suivant",topics:["Nombres","Lettres","Couleurs","Animaux","Formes","Quiz"],question:"Qu’est-ce que c’est ?",number:"Quel est ce nombre ?",letter:"Quelle est cette lettre ?",color:"Quelle est cette couleur ?",animal:"Quel est cet animal ?",shape:"Quelle est cette forme ?",quiz:"Choisis la bonne réponse !",great:"Bravo ! ⭐",try:"Bien essayé ! Apprenons ensemble.",numberNames:["zéro","un","deux","trois","quatre","cinq","six","sept","huit","neuf","dix"],letterNames:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),colorNames:["rouge","bleu","jaune","vert","orange","violet"],animalNames:["chat","chien","vache","lion","poisson","oiseau"],shapeNames:["cercle","carré","triangle","étoile","cœur","rectangle"]}
+const translations = {
+  en: {
+    eyebrow:"A HAPPY PLACE TO LEARN",
+    heroTitle:"Big discoveries start with little steps!",
+    heroText:"Learn letters, numbers, animals, colours and shapes through fun quizzes.",
+    start:"Let's learn!", chooseTitle:"What shall we learn today?",
+    letters:"Letters",numbers:"Numbers",animals:"Animals",
+    colors:"Colours",shapes:"Shapes",correct:"Wonderful! Correct! ⭐",
+    wrong:"Good try! Let's learn together.",next:"Next",
+    done:"Great work! You finished this lesson! 🎉"
+  },
+  rw: {
+    eyebrow:"AHANTU HEZA HO KWIGIRA",
+    heroTitle:"Ubumenyi butangirira ku ntambwe nto!",
+    heroText:"Iga inyuguti, imibare, inyamaswa, amabara n'imiterere ukoresheje ibibazo bishimishije.",
+    start:"Reka twige!",chooseTitle:"Uyu munsi twige iki?",
+    letters:"Inyuguti",numbers:"Imibare",animals:"Inyamaswa",
+    colors:"Amabara",shapes:"Imiterere",correct:"Ni byiza cyane! Igisubizo ni cyo! ⭐",
+    wrong:"Gerageza nanone! Reka twige hamwe.",next:"Ibikurikira",
+    done:"Akazi keza! Urangije iri somo! 🎉"
+  },
+  sv: {
+    eyebrow:"EN GLAD PLATS ATT LÄRA SIG",
+    heroTitle:"Stora upptäckter börjar med små steg!",
+    heroText:"Lär dig bokstäver, siffror, djur, färger och former med roliga frågor.",
+    start:"Nu lär vi oss!",chooseTitle:"Vad ska vi lära oss idag?",
+    letters:"Bokstäver",numbers:"Siffror",animals:"Djur",
+    colors:"Färger",shapes:"Former",correct:"Fantastiskt! Rätt svar! ⭐",
+    wrong:"Bra försök! Vi lär oss tillsammans.",next:"Nästa",
+    done:"Bra jobbat! Du är klar! 🎉"
+  },
+  fr: {
+    eyebrow:"UN ENDROIT JOYEUX POUR APPRENDRE",
+    heroTitle:"Les grandes découvertes commencent par de petits pas !",
+    heroText:"Apprends les lettres, les nombres, les animaux, les couleurs et les formes.",
+    start:"Apprenons !",chooseTitle:"Qu'allons-nous apprendre aujourd'hui ?",
+    letters:"Lettres",numbers:"Nombres",animals:"Animaux",
+    colors:"Couleurs",shapes:"Formes",correct:"Bravo ! Bonne réponse ! ⭐",
+    wrong:"Bien essayé ! Apprenons ensemble.",next:"Suivant",
+    done:"Bravo ! Tu as terminé ! 🎉"
+  }
 };
-const topics=["numbers","letters","colors","animals","shapes","quiz"], emojis={numbers:["0️⃣","1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟"],letters:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),colors:["🟥","🟦","🟨","🟩","🟧","🟪"],animals:["🐱","🐶","🐮","🦁","🐟","🐦"],shapes:["⚪","🟦","🔺","⭐","❤️","▭"]};
-let lang="en",topic="numbers",idx=1,stars=0,correct=0,currentOptions=[];
-const $=id=>document.getElementById(id);
-function say(text){if(!("speechSynthesis"in window)){ $("feedback").textContent="Audio is not supported in this browser.";return;}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang={en:"en-GB",rw:"rw-RW",sv:"sv-SE",fr:"fr-FR"}[lang];speechSynthesis.speak(u)}
-function labels(){return ui[lang]}
-function topicIndex(){return topics.indexOf(topic)}
-function data(){let u=labels(),key=topic==="quiz"?["numbers","letters","colors","animals","shapes"][Math.floor(Math.random()*5)]:topic;let arr=key==="numbers"?u.numberNames:key==="letters"?u.letterNames:key==="colors"?u.colorNames:key==="animals"?u.animalNames:u.shapeNames;let em=emojis[key];return {key,arr,em}}
-function renderCategories(){ $("categories").innerHTML="";labels().topics.forEach((name,i)=>{let b=document.createElement("button");b.className="cat"+(topics[i]===topic?" active":"");b.innerHTML=`<span>${["🔢","🔤","🎨","🐾","🔺","🧩"][i]}</span>${name}`;b.onclick=()=>{topic=topics[i];idx=topic==="numbers"?1:0;renderCategories();renderLesson()};$("categories").appendChild(b)})}
-function renderLesson(){let u=labels(),d=data();let i=Math.min(idx,d.arr.length-1);let prompts={numbers:u.number,letters:u.letter,colors:u.color,animals:u.animal,shapes:u.shape,quiz:u.quiz};$("prompt").textContent=prompts[d.key]||u.question;$("picture").textContent=d.em[i]||d.arr[i];let right=d.arr[i];currentOptions=[right];while(currentOptions.length<Math.min(4,d.arr.length)){let opt=d.arr[Math.floor(Math.random()*d.arr.length)];if(!currentOptions.includes(opt))currentOptions.push(opt)}currentOptions.sort(()=>Math.random()-.5);$("answers").innerHTML="";currentOptions.forEach(opt=>{let b=document.createElement("button");b.className="answer";b.textContent=opt;b.onclick=()=>{if(opt===right){stars++;correct++;$("feedback").textContent=u.great;$("stars").textContent=stars;$("correct").textContent=correct;say(right)}else{$("feedback").textContent=u.try;say(u.try)}};$("answers").appendChild(b)});$("feedback").textContent=""}
-function updateLanguage(){let u=labels();$("tagline").textContent=u.tag;$("languageLabel").textContent=u.language;$("welcomeTitle").textContent=u.welcome;$("welcomeText").textContent=u.intro;$("starsLabel").textContent=u.stars;$("correctLabel").textContent=u.correct;$("listen").textContent=u.listen;$("next").textContent=u.next;renderCategories();renderLesson()}
-$("language").addEventListener("change",e=>{lang=e.target.value;updateLanguage()});$("listen").onclick=()=>{let d=data();say(d.arr[Math.min(idx,d.arr.length-1)])};$("next").onclick=()=>{idx++;renderLesson()};updateLanguage();
-if("serviceWorker"in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+
+const questions = {
+  letters: [
+    {q:"Which is the letter A? / Inyuguti A ni iyihe?",a:["A","B","C"],c:0,s:"A"},
+    {q:"Which letter comes after B?",a:["A","C","D"],c:1,s:"C"},
+    {q:"Which letter starts Dog?",a:["D","G","O"],c:0,s:"D"}
+  ],
+  numbers: [
+    {q:"How many stars? ⭐ ⭐ ⭐",a:["2","3","4"],c:1,s:"Three"},
+    {q:"What comes after 4?",a:["3","5","6"],c:1,s:"Five"},
+    {q:"What is 1 + 1?",a:["1","2","3"],c:1,s:"Two"}
+  ],
+  animals: [
+    {q:"Which animal says meow?",a:["🐶 Dog","🐱 Cat","🐮 Cow"],c:1,s:"Cat"},
+    {q:"Which animal has a long neck?",a:["🦒 Giraffe","🐸 Frog","🐟 Fish"],c:0,s:"Giraffe"},
+    {q:"Which animal lives in water?",a:["🐰 Rabbit","🐟 Fish","🐔 Hen"],c:1,s:"Fish"}
+  ],
+  colors: [
+    {q:"What colour is a banana?",a:["🔵 Blue","🟡 Yellow","🟣 Purple"],c:1,s:"Yellow"},
+    {q:"What colour is grass?",a:["🟢 Green","🔴 Red","⚫ Black"],c:0,s:"Green"},
+    {q:"What colour is a clear sky?",a:["🟠 Orange","🔵 Blue","🟤 Brown"],c:1,s:"Blue"}
+  ],
+  shapes: [
+    {q:"Which shape has 3 sides?",a:["⚪ Circle","🔺 Triangle","🟦 Square"],c:1,s:"Triangle"},
+    {q:"Which shape is round?",a:["⚪ Circle","🔺 Triangle","🟨 Rectangle"],c:0,s:"Circle"},
+    {q:"How many sides does a square have?",a:["3","4","5"],c:1,s:"Four"}
+  ]
+};
+
+let language = "en", topic = "", index = 0, answered = false;
+let stars = Number(localStorage.getItem("ebkidoStars") || 0);
+document.getElementById("stars").textContent = stars;
+
+document.getElementById("language").addEventListener("change", e => {
+  language = e.target.value;
+  const t = translations[language];
+  for (const id of ["eyebrow","heroTitle","heroText","start","chooseTitle",
+    "letters","numbers","animals","colors","shapes"]) {
+    const key = id === "start" ? "start" :
+      id === "chooseTitle" ? "chooseTitle" : id;
+    if (t[key]) {
+      const el = document.getElementById(id === "start" ? "startButton" : id);
+      el.textContent = t[key];
+    }
+  }
+});
+
+function startQuiz(selectedTopic) {
+  topic = selectedTopic;
+  index = 0;
+  document.getElementById("quiz").classList.remove("hidden");
+  showQuestion();
+  document.getElementById("quiz").scrollIntoView({behavior:"smooth"});
+}
+
+function showQuestion() {
+  answered = false;
+  const item = questions[topic][index];
+  document.getElementById("question").textContent = item.q;
+  document.getElementById("feedback").textContent = "";
+  document.getElementById("nextButton").classList.add("hidden");
+  document.getElementById("nextButton").textContent =
+    index === questions[topic].length - 1
+      ? (language==="rw"?"Soza":language==="sv"?"Avsluta":language==="fr"?"Terminer":"Finish")
+      : translations[language].next;
+  const box = document.getElementById("answers");
+  box.innerHTML = "";
+  item.a.forEach((answer, i) => {
+    const button = document.createElement("button");
+    button.className = "answer";
+    button.textContent = answer;
+    button.onclick = () => chooseAnswer(i, button);
+    box.appendChild(button);
+  });
+}
+
+function chooseAnswer(choice, button) {
+  if (answered) return;
+  answered = true;
+  const item = questions[topic][index];
+  const correct = choice === item.c;
+  document.querySelectorAll(".answer").forEach((b,i) => {
+    b.disabled = true;
+    if (i === item.c) b.classList.add("correct");
+  });
+  if (!correct) button.classList.add("wrong");
+  const feedback = document.getElementById("feedback");
+  feedback.textContent = correct
+    ? translations[language].correct
+    : translations[language].wrong;
+  if (correct) {
+    stars++;
+    localStorage.setItem("ebkidoStars", stars);
+    document.getElementById("stars").textContent = stars;
+  }
+  speak(correct ? item.s : feedback.textContent);
+  document.getElementById("nextButton").classList.remove("hidden");
+}
+
+function nextQuestion() {
+  if (!answered) return;
+  if (index < questions[topic].length - 1) {
+    index++;
+    showQuestion();
+  } else {
+    document.getElementById("question").textContent = translations[language].done;
+    document.getElementById("answers").innerHTML = "⭐ " + stars;
+    document.getElementById("feedback").textContent = "";
+    document.getElementById("nextButton").classList.add("hidden");
+    speak(translations[language].done);
+  }
+}
+
+function closeQuiz() {
+  document.getElementById("quiz").classList.add("hidden");
+  topic = "";
+}
+
+function speak(text) {
+  if (!("speechSynthesis" in window)) return;
+  const voice = new SpeechSynthesisUtterance(text);
+  voice.lang = {en:"en-US",rw:"rw-RW",sv:"sv-SE",fr:"fr-FR"}[language];
+  voice.rate = 0.85;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(voice);
+}
 </script>
-</body></html>
+</body>
+</html>
