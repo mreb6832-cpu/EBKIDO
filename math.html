@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6c63ff">
+  <meta name="description" content="EBKIDO Mathematics - learn and play!">
+  <title>EBKIDO Mathematics</title>
+
+  <style>
+    :root {
+      --purple: #6c63ff;
+      --purple-dark: #5148d8;
+      --bg: #f5f4ff;
+      --ink: #24213e;
+      --green: #168653;
+      --red: #c74646;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    header {
+      padding: 20px 16px;
+      color: white;
+      text-align: center;
+      background: linear-gradient(135deg, #6c63ff, #9b65ef);
+    }
+
+    header h1 { margin: 0 0 8px; }
+    header p { margin: 0; }
+
+    main {
+      width: min(900px, 100%);
+      margin: auto;
+      padding: 16px;
+    }
+
+    .panel {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 5px 20px #30287812;
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    select, button, input { font: inherit; }
+
+    select {
+      padding: 11px;
+      border: 1px solid #d9d6ef;
+      border-radius: 12px;
+      background: white;
+      max-width: 100%;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      border-radius: 13px;
+      padding: 13px 17px;
+      font-weight: bold;
+      background: var(--purple);
+      color: white;
+      transition: transform .12s;
+    }
+
+    button:active { transform: scale(.97); }
+    button:focus-visible, select:focus-visible {
+      outline: 3px solid #f0b429;
+      outline-offset: 3px;
+    }
+
+    button.secondary {
+      background: #efedff;
+      color: #4038a9;
+    }
+
+    button.danger { background: #b93636; }
+
+    .operations {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .op {
+      background: #efedff;
+      color: #39318f;
+      font-size: 24px;
+      padding: 18px 5px;
+      border: 2px solid transparent;
+    }
+
+    .op.active {
+      background: var(--purple);
+      color: white;
+      border-color: #39318f;
+    }
+
+    .question {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .question h2 {
+      font-size: clamp(34px, 8vw, 58px);
+      margin: 18px 0;
+    }
+
+    .muted { color: #69677e; }
+    .progress {
+      height: 10px;
+      background: #e8e5f8;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress > div {
+      height: 100%;
+      width: 0%;
+      background: #35b887;
+      transition: width .2s;
+    }
+
+    .answers {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .answer {
+      background: #f1efff;
+      color: var(--ink);
+      border: 2px solid #e2defe;
+      min-height: 76px;
+      font-size: clamp(22px, 5vw, 30px);
+    }
+
+    .answer:disabled { cursor: default; opacity: 1; }
+    .answer.correct {
+      background: #dff8e9;
+      color: #126a40;
+      border-color: #42b77a;
+    }
+
+    .answer.wrong {
+      background: #ffeded;
+      color: #a42b2b;
+      border-color: #e48c8c;
+    }
+
+    .feedback {
+      min-height: 30px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stat {
+      background: #f1efff;
+      padding: 14px 8px;
+      text-align: center;
+      border-radius: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    .report-row {
+      padding: 13px 0;
+      border-bottom: 1px solid #eeeaf8;
+      line-height: 1.6;
+    }
+
+    .hidden { display: none !important; }
+
+    footer {
+      text-align: center;
+      color: #77728c;
+      padding: 10px 16px 30px;
+    }
+
+    @media (max-width: 520px) {
+      main { padding: 10px; }
+      .panel { padding: 15px; }
+      .operations { gap: 6px; }
+      .op { font-size: 21px; padding: 15px 3px; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { display: flex; align-items: center; justify-content: space-between; }
+      .stat strong { margin: 0; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>🧮 EBKIDO Math</h1>
+  <p id="tagline">Learn mathematics by playing!</p>
+</header>
+
+<main>
+  <section class="panel topbar">
+    <div>
+      <strong id="languageLabel">Language</strong><br><br>
+      <select id="language" aria-label="Choose language">
+        <option value="en">🇬🇧 English</option>
+        <option value="rw">🇷🇼 Kinyarwanda</option>
+        <option value="sv">🇸🇪 Svenska</option>
+        <option value="fr">🇫🇷 Français</option>
+      </select>
+    </div>
+
+    <button class="secondary" id="soundButton" type="button">
+      🔊 <span id="listenLabel">Listen</span>
+    </button>
+
+    <button id="reportButton" type="button">📊 Report</button>
+  </section>
+
+  <section id="game">
+    <section class="panel">
+      <strong id="chooseLabel">Choose a math game</strong>
+
+      <div class="operations">
+        <button class="op active" data-op="+" aria-label="Addition">➕</button>
+        <button class="op" data-op="-" aria-label="Subtraction">➖</button>
+        <button class="op" data-op="*" aria-label="Multiplication">✖️</button>
+        <button class="op" data-op="/" aria-label="Division">➗</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="topbar">
+        <span id="questionCount">Question 1 / 10</span>
+        <span>⭐ <strong id="sessionStars">0</strong></span>
+      </div>
+
+      <br>
+      <div class="progress" aria-label="Session progress">
+        <div id="progressBar"></div>
+      </div>
+
+      <div class="question">
+        <p class="muted" id="instruction">Choose the correct answer!</p>
+        <h2 id="problem">2 + 3 = ?</h2>
+        <button class="secondary" id="speakQuestion" type="button">
+          🔊 <span id="hearQuestionLabel">Hear question</span>
+        </button>
+      </div>
+
+      <div class="answers" id="answers"></div>
+      <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+
+      <div class="topbar">
+        <button class="secondary" id="restartButton" type="button">
+          ↻ <span id="restartLabel">Restart</span>
+        </button>
+        <button id="nextButton" type="button" disabled>
+          <span id="nextLabel">Next question →</span>
+        </button>
+      </div>
+    </section>
+  </section>
+
+  <section id="report" class="panel hidden">
+    <div class="topbar">
+      <h2 id="reportTitle">📊 My Progress</h2>
+      <button class="secondary" id="backButton" type="button">← Back</button>
+    </div>
+
+    <p id="reportIntro">This report is saved on this device.</p>
+
+    <div class="stats">
+      <div class="stat">
+        <span id="totalLabel">Questions answered</span>
+        <strong id="totalValue">0</strong>
+      </div>
+      <div class="stat">
+        <span id="accuracyLabel">Correct answers</span>
+        <strong id="accuracyValue">0%</strong>
+      </div>
+      <div class="stat">
+        <span id="starsLabel">Stars earned</span>
+        <strong id="starsValue">0 ⭐</strong>
+      </div>
+    </div>
+
+    <h3 id="skillsTitle">My math skills</h3>
+    <div id="skills"></div>
+
+    <h3 id="historyTitle">Recent sessions</h3>
+    <div id="history"></div>
+
+    <button class="secondary" id="exportButton" type="button">
+      ⬇️ <span id="exportLabel">Download my report</span>
+    </button>
+
+    <button class="danger" id="clearButton" type="button">
+      🗑️ <span id="clearLabel">Clear my progress</span>
+    </button>
+    <p class="muted" id="privacyNote">
+      Your report stays in this browser on this device.
+    </p>
+  </section>
+</main>
+
+<footer>EBKIDO • Learn, play and grow ⭐</footer>
+
+<script>
+(() => {
+  "use strict";
+
+  const $ = id => document.getElementById(id);
+  const STORAGE_KEY = "ebkido_math_progress_v1";
+  const SESSION_LENGTH = 10;
+
+  const text = {
+    en: {
+      tagline:"Learn mathematics by playing!", language:"Language",
+      choose:"Choose a math game", listen:"Listen",
+      instruction:"Choose the correct answer!", hear:"Hear question",
+      next:"Next question →", finish:"Finish session ✓",
+      restart:"Restart", report:"📊 Report", back:"← Back",
+      question:"Question", of:"of", correct:"Correct! Great job! ⭐",
+      wrong:"Not quite! The correct answer is",
+      complete:"Session complete! Well done! 🎉",
+      reportTitle:"📊 My Progress",
+      reportIntro:"Your report is saved on this device.",
+      total:"Questions answered", accuracy:"Correct answers",
+      stars:"Stars earned", skills:"My math skills",
+      history:"Recent sessions", export:"Download my report",
+      clear:"Clear my progress",
+      privacy:"Your report stays in this browser on this device.",
+      addition:"Addition", subtraction:"Subtraction",
+      multiplication:"Multiplication", division:"Division",
+      sessions:"Sessions completed", empty:"No sessions yet. Play a game first!",
+      cleared:"Your progress has been cleared on this device.",
+      confirm:"Clear all your saved math progress on this device?",
+      download:"EBKIDO Math Report", score:"Score",
+      date:"Date", noSpeech:"Audio is not available in this browser.",
+      needAnswer:"Choose an answer first."
+    },
+    rw: {
+      tagline:"Iga imibare ukina!", language:"Ururimi",
+      choose:"Hitamo umukino w'imibare", listen:"Umva",
+      instruction:"Hitamo igisubizo nyacyo!", hear:"Umva ikibazo",
+      next:"Ikibazo gikurikira →", finish:"Soza isomo ✓",
+      restart:"Tangira bundi bushya", report:"📊 Raporo", back:"← Subira",
+      question:"Ikibazo", of:"kuri", correct:"Ni byo! Urakoze! ⭐",
+      wrong:"Si cyo. Igisubizo nyacyo ni",
+      complete:"Usoje isomo! Wakoze neza! 🎉",
+      reportTitle:"📊 Raporo yanjye",
+      reportIntro:"Raporo ibitswe kuri iki gikoresho.",
+      total:"Ibibazo wasubije", accuracy:"Ibisubizo nyacyo",
+      stars:"Inyenyeri wabonye", skills:"Ubumenyi bwanjye",
+      history:"Amasomo aheruka", export:"Manura raporo yanjye",
+      clear:"Siba amanota yanjye",
+      privacy:"Raporo yawe iguma muri browser y'iki gikoresho.",
+      addition:"Guteranya", subtraction:"Gukuramo",
+      multiplication:"Gukuba", division:"Kugabanya",
+      sessions:"Amasomo warangije",
+      empty:"Nta somo urakora. Banza ukine!",
+      cleared:"Amanota yawe yasibwe kuri iki gikoresho.",
+      confirm:"Ushaka gusiba amanota yose yabitswe kuri iki gikoresho?",
+      download:"Raporo y'imibare ya EBKIDO", score:"Amanota",
+      date:"Itariki", noSpeech:"Amajwi ntakora muri iyi browser.",
+      needAnswer:"Banza uhitemo igisubizo."
+    },
+    sv: {
+      tagline:"Lär dig matematik genom att spela!", language:"Språk",
+      choose:"Välj ett mattespel", listen:"Lyssna",
+      instruction:"Välj rätt svar!", hear:"Lyssna på frågan",
+      next:"Nästa fråga →", finish:"Avsluta omgången ✓",
+      restart:"Börja om", report:"📊 Rapport", back:"← Tillbaka",
+      question:"Fråga", of:"av", correct:"Rätt! Bra jobbat! ⭐",
+      wrong:"Inte riktigt! Rätt svar är",
+      complete:"Omgången är klar! Bra jobbat! 🎉",
+      reportTitle:"📊 Mina framsteg",
+      reportIntro:"Rapporten sparas på den här enheten.",
+      total:"Besvarade frågor", accuracy:"Rätta svar",
+      stars:"Intjänade stjärnor", skills:"Mina mattekunskaper",
+      history:"Senaste omgångarna", export:"Ladda ner min rapport",
+      clear:"Rensa mina framsteg",
+      privacy:"Rapporten stannar i webbläsaren på den här enheten.",
+      addition:"Addition", subtraction:"Subtraktion",
+      multiplication:"Multiplikation", division:"Division",
+      sessions:"Avslutade omgångar",
+      empty:"Inga omgångar ännu. Spela först!",
+      cleared:"Dina framsteg har rensats på den här enheten.",
+      confirm:"Vill du radera alla sparade matteframsteg på den här enheten?",
+      download:"EBKIDO-matterapport", score:"Poäng",
+      date:"Datum", noSpeech:"Ljud stöds inte i den här webbläsaren.",
+      needAnswer:"Välj ett svar först."
+    },
+    fr: {
+      tagline:"Apprends les maths en jouant !", language:"Langue",
+      choose:"Choisis un jeu de maths", listen:"Écouter",
+      instruction:"Choisis la bonne réponse !", hear:"Écouter la question",
+      next:"Question suivante →", finish:"Terminer la séance ✓",
+      restart:"Recommencer", report:"📊 Rapport", back:"← Retour",
+      question:"Question", of:"sur", correct:"Correct ! Bravo ! ⭐",
+      wrong:"Pas tout à fait ! La bonne réponse est",
+      complete:"Séance terminée ! Bravo ! 🎉",
+      reportTitle:"📊 Mes progrès",
+      reportIntro:"Ton rapport est enregistré sur cet appareil.",
+      total:"Questions répondues", accuracy:"Bonnes réponses",
+      stars:"Étoiles gagnées", skills:"Mes compétences en maths",
+      history:"Séances récentes", export:"Télécharger mon rapport",
+      clear:"Effacer mes progrès",
+      privacy:"Ton rapport reste dans ce navigateur sur cet appareil.",
+      addition:"Addition", subtraction:"Soustraction",
+      multiplication:"Multiplication", division:"Division",
+      sessions:"Séances terminées",
+      empty:"Aucune séance. Commence par jouer !",
+      cleared:"Tes progrès ont été effacés sur cet appareil.",
+      confirm:"Effacer tous les progrès enregistrés sur cet appareil ?",
+      download:"Rapport de maths EBKIDO", score:"Score",
+      date:"Date", noSpeech:"Le son n'est pas disponible dans ce navigateur.",
+      needAnswer:"Choisis d'abord une réponse."
+    }
+  };
+
+  const operationNames = {
+    "+":"addition", "-":"subtraction", "*":"multiplication", "/":"division"
+  };
+
+  let lang = "en";
+  let operation = "+";
+  let questionNumber = 0;
+  let score = 0;
+  let currentAnswer = 0;
+  let answered = false;
+  let questionStartedAt = 0;
+  let sessionStartedAt = Date.now();
+  let question = null;
+  let history = loadProgress();
+
+  function t(key) {
+    return text[lang][key] || text.en[key] || key;
+  }
+
+  function loadProgress() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      return {
+        questions: Number(saved.questions) || 0,
+        correct: Number(saved.correct) || 0,
+        stars: Number(saved.stars) || 0,
+        sessions: Array.isArray(saved.sessions) ? saved.sessions.slice(0, 50) : [],
+        operations: saved.operations && typeof saved.operations === "object"
+          ? saved.operations : {}
+      };
+    } catch {
+      return { questions:0, correct:0, stars:0, sessions:[], operations:{} };
+    }
+  }
+
+  function saveProgress() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+    } catch {
+      $("feedback").textContent = "Could not save progress in this browser.";
+    }
+  }
+
+  function secureRandom(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  function createQuestion() {
+    let a, b, answer;
+
+    if (operation === "+") {
+      a = secureRandom(11);
+      b = secureRandom(11);
+      answer = a + b;
+    } else if (operation === "-") {
+      a = secureRandom(11);
+      b = secureRandom(11);
+      if (b > a) [a, b] = [b, a];
+      answer = a - b;
+    } else if (operation === "*") {
+      a = 1 + secureRandom(6);
+      b = 1 + secureRandom(6);
+      answer = a * b;
+    } else {
+      b = 1 + secureRandom(5);
+      answer = secureRandom(6);
+      a = b * answer;
+    }
+
+    const symbol = operation === "*" ? "×" :
+                   operation === "/" ? "÷" : operation;
+    question = { a, b, symbol, answer };
+    currentAnswer = answer;
+    answered = false;
+    questionStartedAt = Date.now();
+
+    $("problem").textContent = `${a} ${symbol} ${b} = ?`;
+    $("questionCount").textContent =
+      `${t("question")} ${questionNumber + 1} ${t("of")} ${SESSION_LENGTH}`;
+    $("sessionStars").textContent = score;
+    $("progressBar").style.width =
+      `${questionNumber / SESSION_LENGTH * 100}%`;
+    $("feedback").textContent = "";
+    $("nextButton").disabled = true;
+    $("nextLabel").textContent = questionNumber === SESSION_LENGTH - 1
+      ? t("finish") : t("next");
+
+    const options = new Set([answer]);
+    while (options.size < 4) {
+      const spread = Math.max(5, Math.abs(answer) + 3);
+      let candidate = answer + secureRandom(spread * 2 + 1) - spread;
+      if (candidate >= 0 && candidate !== answer) options.add(candidate);
+    }
+
+    const shuffled = [...options].sort(() => Math.random() - 0.5);
+    const container = $("answers");
+    container.replaceChildren();
+
+    shuffled.forEach(value => {
+      const button = document.createElement("button");
+      button.className = "answer";
+      button.textContent = value;
+      button.type = "button";
+      button.addEventListener("click", () => checkAnswer(value, button));
+      container.appendChild(button);
+    });
+  }
+
+  function checkAnswer(value, button) {
+    if (answered) return;
+    answered = true;
+
+    const correct = value === currentAnswer;
+    const buttons = [...$("answers").querySelectorAll("button")];
+    buttons.forEach(b => {
+      b.disabled = true;
+      if (Number(b.textContent) === currentAnswer) b.classList.add("correct");
+    });
+    if (!correct) button.classList.add("wrong");
+
+    history.questions++;
+    history.operations[operation] ||= { questions:0, correct:0 };
+    history.operations[operation].questions++;
+
+    if (correct) {
+      score++;
+      history.correct++;
+      history.stars++;
+      history.operations[operation].correct++;
+      $("feedback").textContent = t("correct");
+    } else {
+      $("feedback").textContent = `${t("wrong")} ${currentAnswer}.`;
+    }
+
+    $("sessionStars").textContent = score;
+    $("nextButton").disabled = false;
+    $("progressBar").style.width =
+      `${(questionNumber + 1) / SESSION_LENGTH * 100}%`;
+
+    saveProgress();
+  }
+
+  function speak(value) {
+    if (!("speechSynthesis" in window)) {
+      $("feedback").textContent = t("noSpeech");
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(value);
+    utterance.lang = {en:"en-US", rw:"rw-RW", sv:"sv-SE", fr:"fr-FR"}[lang];
+    utterance.rate = 0.82;
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function speakCurrentQuestion() {
+    if (!question) return;
+    const phrase = {
+      en:`What is ${question.a} ${operationSpeech()} ${question.b}?`,
+      rw:`Ese ${question.a} ${operationSpeech()} ${question.b} bingana iki?`,
+      sv:`Vad är ${question.a} ${operationSpeech()} ${question.b}?`,
+      fr:`Combien font ${question.a} ${operationSpeech()} ${question.b} ?`
+    };
+    speak(phrase[lang]);
+  }
+
+  function operationSpeech() {
+    const words = {
+      en:{"+":"plus","-":"minus","*":"times","/":"divided by"},
+      rw:{"+":"wongeraho","-":"ukuramo","*":"gukuba na","/":"igabanyijwe na"},
+      sv:{"+":"plus","-":"minus","*":"gånger","/":"delat med"},
+      fr:{"+":"plus","-":"moins","*":"fois","/":"divisé par"}
+    };
+    return words[lang][operation];
+  }
+
+  function startSession() {
+    questionNumber = 0;
+    score = 0;
+    sessionStartedAt = Date.now();
+    $("sessionStars").textContent = "0";
+    $("game").classList.remove("hidden");
+    $("report").classList.add("hidden");
+    createQuestion();
+  }
+
+  function nextQuestion() {
+    if (!answered) return;
+
+    if (questionNumber === SESSION_LENGTH - 1) {
+      history.sessions.unshift({
+        date: new Date().toISOString(),
+        score,
+        total: SESSION_LENGTH,
+        operation
+      });
+      history.sessions = history.sessions.slice(0, 50);
+      saveProgress();
+
+      $("problem").textContent = `${score} / ${SESSION_LENGTH} ⭐`;
+      $("instruction").textContent = t("complete");
+      $("feedback").textContent = t("complete");
+      $("answers").replaceChildren();
+      $("progressBar").style.width = "100%";
+      $("nextButton").disabled = true;
+      $("questionCount").textContent = t("complete");
+      renderReport();
+      $("game").classList.add("hidden");
+      $("report").classList.remove("hidden");
+      return;
+    }
+
+    questionNumber++;
+    createQuestion();
+  }
+
+  function renderReport() {
+    $("reportTitle").textContent = t("reportTitle");
+    $("reportIntro").textContent = t("reportIntro");
+    $("totalLabel").textContent = t("total");
+    $("accuracyLabel").textContent = t("accuracy");
+    $("starsLabel").textContent = t("stars");
+    $("skillsTitle").textContent = t("skills");
+    $("historyTitle").textContent = t("history");
+    $("exportLabel").textContent = t("export");
+    $("clearLabel").textContent = t("clear");
+    $("privacyNote").textContent = t("privacy");
+    $("backButton").textContent = t("back");
+
+    $("totalValue").textContent = history.questions;
+    $("accuracyValue").textContent = history.questions
+      ? `${Math.round(history.correct / history.questions * 100)}%` : "0%";
+    $("starsValue").textContent = `${history.stars} ⭐`;
+
+    const skills = $("skills");
+    skills.replaceChildren();
+
+    ["+", "-", "*", "/"].forEach(op => {
+      const data = history.operations[op] || {questions:0, correct:0};
+      const percent = data.questions
+        ? Math.round(data.correct / data.questions * 100) : 0;
+      const row = document.createElement("div");
+      row.className = "report-row";
+      row.textContent =
+        `${t(operationNames[op])}: ${data.correct}/${data.questions} (${percent}%)`;
+      skills.appendChild(row);
+    });
+
+    const sessions = $("history");
+    sessions.replaceChildren();
+
+    if (!history.sessions.length) {
+      sessions.textContent = t("empty");
+    } else {
+      history.sessions.slice(0, 10).forEach(item => {
+        const row = document.createElement("div");
+        row.className = "report-row";
+        const date = new Date(item.date).toLocaleDateString(
+          {en:"en-US",rw:"en-GB",sv:"sv-SE",fr:"fr-FR"}[lang]
+        );
+        row.textContent =
+          `${date} — ${t(operationNames[item.operation] || "+")}: ${item.score}/${item.total} ⭐`;
+        sessions.appendChild(row);
+      });
+    }
+  }
+
+  function updateLanguage() {
+    lang = $("language").value;
+    document.documentElement.lang = lang;
+    $("tagline").textContent = t("tagline");
+    $("languageLabel").textContent = t("language");
+    $("chooseLabel").textContent = t("choose");
+    $("listenLabel").textContent = t("listen");
+    $("reportButton").textContent = t("report");
+    $("instruction").textContent = t("instruction");
+    $("hearQuestionLabel").textContent = t("hear");
+    $("restartLabel").textContent = t("restart");
+    $("nextLabel").textContent = t("next");
+    renderReport();
+    if (!answered) createQuestion();
+  }
+
+  document.querySelectorAll(".op").forEach(button => {
+    button.addEventListener("click", () => {
+      operation = button.dataset.op;
+      document.querySelectorAll(".op").forEach(b =>
+        b.classList.toggle("active", b === button)
+      );
+      startSession();
+    });
+  });
+
+  $("language").addEventListener("change", updateLanguage);
+  $("soundButton").addEventListener("click", speakCurrentQuestion);
+  $("speakQuestion").addEventListener("click", speakCurrentQuestion);
+  $("nextButton").addEventListener("click", nextQuestion);
+  $("restartButton").addEventListener("click", startSession);
+
+  $("reportButton").addEventListener("click", () => {
+    $("game").classList.add("hidden");
+    $("report").classList.remove("hidden");
+    renderReport();
+  });
+
+  $("backButton").addEventListener("click", () => {
+    $("report").classList.add("hidden");
+    $("game").classList.remove("hidden");
+  });
+
+  $("clearButton").addEventListener("click", () => {
+    if (!confirm(t("confirm"))) return;
+    history = {
+      questions:0, correct:0, stars:0, sessions:[], operations:{}
+    };
+    saveProgress();
+    renderReport();
+    $("feedback").textContent = t("cleared");
+  });
+
+  $("exportButton").addEventListener("click", () => {
+    const report = {
+      title:t("download"),
+      createdAt:new Date().toISOString(),
+      questions:history.questions,
+      correct:history.correct,
+      accuracy:history.questions
+        ? Math.round(history.correct / history.questions * 100) : 0,
+      stars:history.stars,
+      operations:history.operations,
+      sessions:history.sessions
+    };
+    const blob = new Blob(
+      [JSON.stringify(report, null, 2)],
+      {type:"application/json"}
+    );
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "ebkido-math-report.json";
+    link.click();
+    URL.revokeObjectURL(url);
+  });
+
+  updateLanguage();
+  startSession();
+})();
+</script>
+</body>
+</html>
