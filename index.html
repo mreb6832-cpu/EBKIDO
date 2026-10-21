@@ -10,263 +10,267 @@
 <link rel="manifest" href="manifest.json">
 <title>EBKIDO — Learn & Play</title>
 
-<style>
-:root {
-  --purple: #6c63ff;
-  --ink: #25234a;
-  --bg: #f7f7ff;
-  --card: #ffffff;
-  --pink: #ff7eb6;
-  --yellow: #ffd166;
-  --green: #65d6a5;
-}
 
-* { box-sizing: border-box; }
+  <style>
+    :root {
+      --purple: #6c63ff;
+      --ink: #25234a;
+      --bg: #f7f7ff;
+      --card: #ffffff;
+      --pink: #ff7eb6;
+      --yellow: #ffd166;
+      --green: #65d6a5;
+    }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-}
+    * { box-sizing: border-box; }
 
-header {
-  padding: 22px 16px 28px;
-  background: linear-gradient(135deg, #6c63ff, #a18aff);
-  color: white;
-  border-radius: 0 0 28px 28px;
-}
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
 
-.top {
-  max-width: 1000px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
+    header {
+      padding: 22px 16px 28px;
+      background: linear-gradient(135deg, #6c63ff, #a18aff);
+      color: white;
+      border-radius: 0 0 28px 28px;
+    }
 
-.logo {
-  font-size: 2rem;
-  font-weight: 900;
-  letter-spacing: -1px;
-}
+    .top {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
 
-.tag { opacity: .95; }
+    .logo {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
 
-.header-controls {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-}
+    .tag { opacity: .95; }
 
-select, button {
-  font: inherit;
-  border: 0;
-  border-radius: 14px;
-  padding: 12px 14px;
-  cursor: pointer;
-}
+    .header-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-select {
-  background: white;
-  color: var(--ink);
-  max-width: 100%;
-}
+    select, button {
+      font: inherit;
+      border: 0;
+      border-radius: 14px;
+      padding: 12px 14px;
+      cursor: pointer;
+    }
 
-.auth-button {
-  background: white;
-  color: var(--purple);
-  font-weight: 800;
-  text-decoration: none;
-  display: inline-block;
-  padding: 11px 14px;
-  border-radius: 14px;
-  font-size: .95rem;
-}
+    select {
+      background: white;
+      color: var(--ink);
+      max-width: 100%;
+    }
 
-.auth-button:hover { background: #f0efff; }
+    .auth-button {
+      background: white;
+      color: var(--purple);
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-block;
+      padding: 11px 14px;
+      border-radius: 14px;
+      font-size: .95rem;
+      margin: 2px;
+    }
 
-.logout-button {
-  background: #ffe7ed;
-  color: #8d254b;
-  font-weight: 800;
-}
+    .auth-button:hover { background: #f0efff; }
 
-main {
-  max-width: 1000px;
-  margin: 22px auto;
-  padding: 0 16px;
-}
+    .logout-button {
+      background: #ffe7ed;
+      color: #8d254b;
+      font-weight: 800;
+    }
 
-.welcome {
-  background: white;
-  border-radius: 22px;
-  padding: 20px;
-  box-shadow: 0 8px 24px #29226b10;
-  margin-top: -4px;
-}
+    main {
+      max-width: 1000px;
+      margin: 22px auto;
+      padding: 0 16px;
+    }
 
-h1 {
-  font-size: clamp(1.5rem, 4vw, 2.3rem);
-  margin: 0 0 8px;
-}
+    .welcome {
+      background: white;
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: 0 8px 24px #29226b10;
+      margin-top: -4px;
+    }
 
-p { line-height: 1.5; }
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2.3rem);
+      margin: 0 0 8px;
+    }
 
-.categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-  gap: 12px;
-  margin: 18px 0;
-}
+    p { line-height: 1.5; }
 
-.cat {
-  min-height: 112px;
-  background: white;
-  border-radius: 20px;
-  padding: 16px;
-  text-align: center;
-  box-shadow: 0 5px 18px #25234a0c;
-  color: var(--ink);
-  font-weight: 750;
-  border: 2px solid transparent;
-}
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
 
-.cat span {
-  display: block;
-  font-size: 2rem;
-  margin-bottom: 6px;
-}
+    .cat {
+      min-height: 112px;
+      background: white;
+      border-radius: 20px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 5px 18px #25234a0c;
+      color: var(--ink);
+      font-weight: 750;
+      border: 2px solid transparent;
+      width: 100%;
+    }
 
-.cat.active {
-  border-color: var(--purple);
-  background: #f0efff;
-}
+    .cat span {
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 6px;
+    }
 
-.panel {
-  background: white;
-  border-radius: 24px;
-  padding: 22px;
-  box-shadow: 0 8px 24px #29226b10;
-  text-align: center;
-}
+    .cat.active {
+      border-color: var(--purple);
+      background: #f0efff;
+    }
 
-.prompt {
-  font-size: clamp(1.25rem, 4vw, 2rem);
-  font-weight: 850;
-  margin: 4px;
-}
+    .panel {
+      background: white;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 8px 24px #29226b10;
+      text-align: center;
+      min-width: 0;
+    }
 
-.big {
-  font-size: clamp(4rem, 13vw, 7rem);
-  margin: 12px;
-}
+    .prompt {
+      font-size: clamp(1.25rem, 4vw, 2rem);
+      font-weight: 850;
+      margin: 4px;
+    }
 
-.answer-row {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 12px 0;
-}
+    .big {
+      font-size: clamp(4rem, 13vw, 7rem);
+      margin: 12px;
+    }
 
-.answer {
-  background: #f0efff;
-  color: var(--ink);
-  font-weight: 750;
-  min-width: 100px;
-}
+    .answer-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
 
-.primary {
-  background: var(--purple);
-  color: white;
-  font-weight: 800;
-}
+    .answer {
+      background: #f0efff;
+      color: var(--ink);
+      font-weight: 750;
+      min-width: 100px;
+    }
 
-.secondary {
-  background: #f1f1fa;
-  color: var(--ink);
-}
+    .primary {
+      background: var(--purple);
+      color: white;
+      font-weight: 800;
+    }
 
-.feedback {
-  min-height: 32px;
-  font-weight: 800;
-  margin-top: 10px;
-}
+    .secondary {
+      background: #f1f1fa;
+      color: var(--ink);
+    }
 
-.stats {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 16px;
-}
+    .feedback {
+      min-height: 32px;
+      font-weight: 800;
+      margin-top: 10px;
+    }
 
-.stat {
-  flex: 1;
-  background: white;
-  border-radius: 16px;
-  padding: 14px;
-  text-align: center;
-  min-width: 120px;
-}
+    .stats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
 
-.stat strong {
-  display: block;
-  font-size: 1.5rem;
-}
+    .stat {
+      flex: 1;
+      background: white;
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      min-width: 120px;
+    }
 
-footer {
-  text-align: center;
-  padding: 24px;
-  color: #777;
-}
+    .stat strong {
+      display: block;
+      font-size: 1.5rem;
+    }
 
-button:focus-visible,
-select:focus-visible,
-a:focus-visible {
-  outline: 3px solid #ffbf47;
-  outline-offset: 3px;
-}
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: #777;
+    }
 
-button:hover { filter: brightness(.97); }
+    button:focus-visible,
+    select:focus-visible,
+    a:focus-visible {
+      outline: 3px solid #ffbf47;
+      outline-offset: 3px;
+    }
 
-.auth-status {
-  font-size: .9rem;
-  font-weight: 700;
-  color: white;
-}
+    button:hover { filter: brightness(.97); }
 
-@media (min-width: 720px) {
-  .layout {
-    display: grid;
-    grid-template-columns: 1fr 1.25fr;
-    gap: 18px;
-    align-items: start;
-  }
+    .auth-status {
+      font-size: .9rem;
+      font-weight: 700;
+      color: white;
+      overflow-wrap: anywhere;
+    }
 
-  .categories {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+    @media (min-width: 720px) {
+      .layout {
+        display: grid;
+        grid-template-columns: 1fr 1.25fr;
+        gap: 18px;
+        align-items: start;
+      }
 
-@media (max-width: 480px) {
-  .top { align-items: flex-start; }
-  .header-controls { width: 100%; }
-  .header-controls select { flex: 1; }
-  .auth-button { padding: 10px 11px; }
-}
-</style>
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .top { align-items: flex-start; }
+      .header-controls { width: 100%; }
+      .header-controls select { flex: 1; }
+      .auth-button { padding: 10px 11px; }
+    }
+  </style>
 </head>
 
 <body>
-
 <header>
   <div class="top">
     <div>
-      <div class="logo">🌈 EBKIDO</div>
+      <div class="logo">EBKIDO</div>
       <div class="tag" id="tagline">Learn a little. Grow a lot!</div>
     </div>
 
@@ -330,10 +334,8 @@ button:hover { filter: brightness(.97); }
 
 <footer>Made with ❤️ for curious kids · EBKIDO</footer>
 
-<!-- Supabase library -->
+<!-- Supabase authentication library -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- Your Supabase configuration -->
 <script src="./supabaseClient.js"></script>
 
 <script>
@@ -341,7 +343,6 @@ button:hover { filter: brightness(.97); }
 
 /* =========================================
    EBKIDO AUTHENTICATION
-   Uses the supabaseClient.js file
 ========================================= */
 
 const authButtons = document.getElementById("authButtons");
@@ -360,9 +361,7 @@ function showSignedInState(user) {
       user.email ||
       "";
 
-    accountMessage.textContent = displayName
-      ? `👋 ${displayName}`
-      : "";
+    accountMessage.textContent = displayName ? `👋 ${displayName}` : "";
   } else {
     authButtons.hidden = false;
     accountButtons.hidden = true;
@@ -377,15 +376,13 @@ async function initializeAuthentication() {
   ) {
     accountMessage.textContent =
       "Authentication setup is missing. Check supabaseClient.js.";
-    console.error(
-      "Supabase client not found. Check the URL and public key in supabaseClient.js."
-    );
+
+    console.error("Supabase client not found. Check supabaseClient.js.");
     return;
   }
 
   try {
     const { data, error } = await supabaseClient.auth.getSession();
-
     if (error) throw error;
 
     showSignedInState(data.session?.user || null);
@@ -403,24 +400,19 @@ logoutButton.addEventListener("click", async () => {
   if (
     typeof supabaseClient === "undefined" ||
     !supabaseClient.auth
-  ) {
-    return;
-  }
+  ) return;
 
   logoutButton.disabled = true;
 
   try {
     const { error } = await supabaseClient.auth.signOut();
-
     if (error) throw error;
 
     showSignedInState(null);
-    accountMessage.textContent = "";
     window.location.href = "index.html";
   } catch (error) {
     console.error("Logout failed:", error);
-    accountMessage.textContent =
-      "Could not log out. Please try again.";
+    accountMessage.textContent = "Could not log out. Please try again.";
     logoutButton.disabled = false;
   }
 });
@@ -443,7 +435,7 @@ const ui = {
     register: "✨ Register",
     account: "👤 My Account",
     logout: "↪ Logout",
-    topics: ["Numbers", "Letters", "Colors", "Animals", "Shapes", "Quiz"],
+    topics: ["Numbers", "Letters", "Colors", "Animals", "Shapes", "Quiz", "Mathematics", "Progress Report"],
     question: "What is this?",
     number: "What number is this?",
     letter: "Which letter is this?",
@@ -473,7 +465,7 @@ const ui = {
     register: "✨ Iyandikishe",
     account: "👤 Konti yanjye",
     logout: "↪ Sohoka",
-    topics: ["Imibare", "Inyuguti", "Amabara", "Inyamaswa", "Imiterere", "Ikibazo"],
+    topics: ["Imibare", "Inyuguti", "Amabara", "Inyamaswa", "Imiterere", "Ikibazo", "Imibare ibarwa", "Raporo y'amasomo"],
     question: "Ibi ni iki?",
     number: "Iyi ni iyihe mibare?",
     letter: "Iyi ni iyihe nyuguti?",
@@ -503,7 +495,7 @@ const ui = {
     register: "✨ Registrera",
     account: "👤 Mitt konto",
     logout: "↪ Logga ut",
-    topics: ["Siffror", "Bokstäver", "Färger", "Djur", "Former", "Quiz"],
+    topics: ["Siffror", "Bokstäver", "Färger", "Djur", "Former", "Quiz", "Matematik", "Framstegsrapport"],
     question: "Vad är det här?",
     number: "Vilket tal är det här?",
     letter: "Vilken bokstav är det här?",
@@ -533,7 +525,7 @@ const ui = {
     register: "✨ Inscription",
     account: "👤 Mon compte",
     logout: "↪ Déconnexion",
-    topics: ["Nombres", "Lettres", "Couleurs", "Animaux", "Formes", "Quiz"],
+    topics: ["Nombres", "Lettres", "Couleurs", "Animaux", "Formes", "Quiz", "Mathématiques", "Rapport de progrès"],
     question: "Qu’est-ce que c’est ?",
     number: "Quel est ce nombre ?",
     letter: "Quelle est cette lettre ?",
@@ -552,12 +544,8 @@ const ui = {
 };
 
 const topics = [
-  "numbers",
-  "letters",
-  "colors",
-  "animals",
-  "shapes",
-  "quiz"
+  "numbers", "letters", "colors", "animals", "shapes", "quiz",
+  "math", "report"
 ];
 
 const emojis = {
@@ -578,22 +566,17 @@ let currentOptions = [];
 let answered = false;
 
 const $ = id => document.getElementById(id);
-
-function labels() {
-  return ui[lang];
-}
+const labels = () => ui[lang];
 
 function say(text) {
   if (!("speechSynthesis" in window)) {
-    $("feedback").textContent =
-      "Audio is not supported in this browser.";
+    $("feedback").textContent = "Audio is not supported in this browser.";
     return;
   }
 
   speechSynthesis.cancel();
 
   const utterance = new SpeechSynthesisUtterance(text);
-
   utterance.lang = {
     en: "en-GB",
     rw: "rw-RW",
@@ -608,53 +591,52 @@ function data() {
   let key = topic;
 
   if (topic === "quiz") {
-    const quizTopics = [
-      "numbers",
-      "letters",
-      "colors",
-      "animals",
-      "shapes"
-    ];
-
+    const quizTopics = ["numbers", "letters", "colors", "animals", "shapes"];
     key = quizTopics[Math.floor(Math.random() * quizTopics.length)];
   }
 
   const u = labels();
 
-  const arr = key === "numbers" ? u.numberNames :
-              key === "letters" ? u.letterNames :
-              key === "colors" ? u.colorNames :
-              key === "animals" ? u.animalNames :
-              u.shapeNames;
+  const arr =
+    key === "numbers" ? u.numberNames :
+    key === "letters" ? u.letterNames :
+    key === "colors" ? u.colorNames :
+    key === "animals" ? u.animalNames :
+    u.shapeNames;
 
-  return {
-    key,
-    arr,
-    em: emojis[key]
-  };
+  return { key, arr, em: emojis[key] };
 }
 
 function renderCategories() {
   $("categories").innerHTML = "";
 
   labels().topics.forEach((name, i) => {
+    const key = topics[i];
     const button = document.createElement("button");
 
     button.type = "button";
-    button.className =
-      "cat" + (topics[i] === topic ? " active" : "");
+    button.className = "cat" + (key === topic ? " active" : "");
 
     const icon = document.createElement("span");
-
     icon.textContent = [
-      "🔢", "🔤", "🎨", "🐾", "🔺", "🧩"
+      "🔢", "🔤", "🎨", "🐾", "🔺", "🧩", "🧮", "📊"
     ][i];
 
     button.appendChild(icon);
     button.appendChild(document.createTextNode(name));
 
     button.addEventListener("click", () => {
-      topic = topics[i];
+      if (key === "math") {
+        window.location.href = "./math.html";
+        return;
+      }
+
+      if (key === "report") {
+        window.location.href = "./math.html#report";
+        return;
+      }
+
+      topic = key;
       idx = topic === "numbers" ? 1 : 0;
       renderCategories();
       renderLesson();
@@ -667,7 +649,6 @@ function renderCategories() {
 function renderLesson() {
   const u = labels();
   const d = data();
-
   const i = Math.min(idx, d.arr.length - 1);
 
   const prompts = {
@@ -707,7 +688,6 @@ function renderLesson() {
 
   currentOptions.forEach(option => {
     const button = document.createElement("button");
-
     button.type = "button";
     button.className = "answer";
     button.textContent = option;
@@ -723,7 +703,6 @@ function renderLesson() {
         $("feedback").textContent = u.great;
         $("stars").textContent = stars;
         $("correct").textContent = correct;
-
         button.style.background = "#d8f8e9";
 
         say(rightAnswer);
@@ -764,28 +743,19 @@ $("language").addEventListener("change", event => {
 });
 
 $("listen").addEventListener("click", () => {
-  if (currentQuestion) {
-    say(currentQuestion.spokenAnswer);
-  }
+  if (currentQuestion) say(currentQuestion.spokenAnswer);
 });
 
 $("next").addEventListener("click", () => {
   idx++;
-
   const d = data();
 
-  if (idx >= d.arr.length) {
-    idx = 0;
-  }
-
+  if (idx >= d.arr.length) idx = 0;
   renderLesson();
 });
 
-/* Keep the existing PWA service worker support. */
-if (
-  "serviceWorker" in navigator &&
-  location.protocol.startsWith("http")
-) {
+/* Keep PWA service worker support. */
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
   navigator.serviceWorker.register("./sw.js").catch(error => {
     console.warn("Service worker registration failed:", error);
   });
@@ -795,6 +765,5 @@ if (
 updateLanguage();
 initializeAuthentication();
 </script>
-
 </body>
 </html>
