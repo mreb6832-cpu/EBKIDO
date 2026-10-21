@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="google-site-verification" content="w1xjlGEr733FoAZAauHPqOYr5VTdH4t9pbAeVH5VR0s" />
+
   <title>EBKIDO — Learn and Play</title>
   <meta name="description" content="EBKIDO helps children aged 5–10 learn through fun lessons, games and mathematics in four languages.">
   <meta name="theme-color" content="#6c63ff">
   <link rel="manifest" href="./manifest.json">
-  <meta name="google-site-verification" content="w1xjlGEr733FoAZAauHPqOYr5VTdH4t9pbAeVH5VR0s" />
 
   <style>
     :root {
@@ -16,23 +18,19 @@
       --bg: #f7f7ff;
       --green: #65d6a5;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
       background: var(--bg);
       color: var(--ink);
     }
-
     header {
       padding: 22px 16px 28px;
       background: linear-gradient(135deg, #6c63ff, #a18aff);
       color: white;
       border-radius: 0 0 28px 28px;
     }
-
     .top {
       max-width: 1000px;
       margin: auto;
@@ -42,20 +40,8 @@
       gap: 14px;
       flex-wrap: wrap;
     }
-
-    .logo {
-      font-size: 2rem;
-      font-weight: 900;
-      letter-spacing: -1px;
-    }
-
-    .header-controls {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
+    .logo { font-size: 2rem; font-weight: 900; letter-spacing: -1px; }
+    .header-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     select, button {
       font: inherit;
       border: 0;
@@ -63,9 +49,7 @@
       padding: 12px 14px;
       cursor: pointer;
     }
-
     select { background: white; color: var(--ink); }
-
     .auth-button {
       background: white;
       color: var(--purple);
@@ -76,32 +60,22 @@
       border-radius: 14px;
       margin: 2px;
     }
-
     .logout-button { background: #ffe7ed; color: #8d254b; font-weight: 800; }
-
-    main {
-      max-width: 1000px;
-      margin: 22px auto;
-      padding: 0 16px;
-    }
-
+    main { max-width: 1000px; margin: 22px auto; padding: 0 16px; }
     .welcome, .panel, .stat {
       background: white;
       border-radius: 22px;
       padding: 20px;
       box-shadow: 0 8px 24px #29226b10;
     }
-
     h1 { font-size: clamp(1.5rem, 4vw, 2.3rem); margin: 0 0 8px; }
     p { line-height: 1.5; }
-
     .categories {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
       gap: 12px;
       margin: 18px 0;
     }
-
     .cat {
       min-height: 112px;
       background: white;
@@ -114,14 +88,11 @@
       border: 2px solid transparent;
       width: 100%;
     }
-
     .cat span { display: block; font-size: 2rem; margin-bottom: 6px; }
     .cat.active { border-color: var(--purple); background: #f0efff; }
-
     .panel { text-align: center; min-width: 0; }
     .prompt { font-size: clamp(1.25rem, 4vw, 2rem); font-weight: 850; }
     .big { font-size: clamp(4rem, 13vw, 7rem); margin: 12px; }
-
     .answer-row {
       display: flex;
       justify-content: center;
@@ -129,19 +100,15 @@
       flex-wrap: wrap;
       margin: 12px 0;
     }
-
     .answer { background: #f0efff; color: var(--ink); font-weight: 750; min-width: 100px; }
     .primary { background: var(--purple); color: white; font-weight: 800; }
     .secondary { background: #f1f1fa; color: var(--ink); }
     .feedback { min-height: 32px; font-weight: 800; margin-top: 10px; }
-
     .stats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
     .stat { flex: 1; text-align: center; min-width: 120px; padding: 14px; }
     .stat strong { display: block; font-size: 1.5rem; }
-
     footer { text-align: center; padding: 24px; color: #777; }
     [hidden] { display: none !important; }
-
     @media (min-width: 720px) {
       .layout {
         display: grid;
@@ -151,7 +118,6 @@
       }
       .categories { grid-template-columns: repeat(2, 1fr); }
     }
-
     @media (max-width: 480px) {
       .top { align-items: flex-start; }
       .header-controls { width: 100%; }
@@ -159,7 +125,6 @@
     }
   </style>
 </head>
-
 <body>
 <header>
   <div class="top">
@@ -167,7 +132,6 @@
       <div class="logo">EBKIDO</div>
       <div id="tagline">Learn a little. Grow a lot!</div>
     </div>
-
     <div class="header-controls">
       <label>
         <span id="languageLabel">Language</span>
@@ -178,12 +142,10 @@
           <option value="fr">🇫🇷 Français</option>
         </select>
       </label>
-
       <div id="authButtons">
         <a class="auth-button" id="loginLink" href="login.html">🔑 Login</a>
         <a class="auth-button" id="registerLink" href="register.html">✨ Register</a>
       </div>
-
       <div id="accountButtons" hidden>
         <a class="auth-button" id="accountLink" href="account.html">👤 My Account</a>
         <button class="logout-button" id="logoutButton" type="button">↪ Logout</button>
@@ -201,7 +163,6 @@
 
   <div class="layout">
     <nav class="categories" id="categories" aria-label="Learning topics"></nav>
-
     <section class="panel" aria-live="polite">
       <div class="prompt" id="prompt">What number is this?</div>
       <div class="big" id="picture">1️⃣</div>
@@ -213,14 +174,8 @@
   </div>
 
   <div class="stats">
-    <div class="stat">
-      ⭐ <strong id="stars">0</strong>
-      <span id="starsLabel">Stars earned</span>
-    </div>
-    <div class="stat">
-      ✅ <strong id="correct">0</strong>
-      <span id="correctLabel">Correct answers</span>
-    </div>
+    <div class="stat">⭐ <strong id="stars">0</strong><span id="starsLabel">Stars earned</span></div>
+    <div class="stat">✅ <strong id="correct">0</strong><span id="correctLabel">Correct answers</span></div>
   </div>
 </main>
 
@@ -232,23 +187,20 @@
 <script>
 "use strict";
 
-/* Authentication */
-const authButtons = document.getElementById("authButtons");
-const accountButtons = document.getElementById("accountButtons");
-const accountMessage = document.getElementById("accountMessage");
-const logoutButton = document.getElementById("logoutButton");
+const $ = id => document.getElementById(id);
+const authButtons = $("authButtons");
+const accountButtons = $("accountButtons");
+const accountMessage = $("accountMessage");
+const logoutButton = $("logoutButton");
 
 function showSignedInState(user) {
   authButtons.hidden = !!user;
   accountButtons.hidden = !user;
-
-  const displayName = user
+  const name = user
     ? user.user_metadata?.parent_name ||
-      user.user_metadata?.full_name ||
-      user.email || ""
+      user.user_metadata?.full_name || user.email || ""
     : "";
-
-  accountMessage.textContent = displayName ? `👋 ${displayName}` : "";
+  accountMessage.textContent = name ? `👋 ${name}` : "";
 }
 
 async function initializeAuthentication() {
@@ -257,13 +209,10 @@ async function initializeAuthentication() {
     console.error("Supabase client not found.");
     return;
   }
-
   try {
     const { data, error } = await supabaseClient.auth.getSession();
     if (error) throw error;
-
     showSignedInState(data.session?.user || null);
-
     supabaseClient.auth.onAuthStateChange((_event, session) => {
       showSignedInState(session?.user || null);
     });
@@ -275,9 +224,7 @@ async function initializeAuthentication() {
 
 logoutButton.addEventListener("click", async () => {
   if (typeof supabaseClient === "undefined" || !supabaseClient.auth) return;
-
   logoutButton.disabled = true;
-
   try {
     const { error } = await supabaseClient.auth.signOut();
     if (error) throw error;
@@ -289,7 +236,6 @@ logoutButton.addEventListener("click", async () => {
   }
 });
 
-/* Four-language learning content */
 const ui = {
   en: {
     tag:"Learn a little. Grow a lot!", language:"Language",
@@ -369,10 +315,7 @@ const ui = {
   }
 };
 
-const topics = [
-  "numbers","letters","colors","animals","shapes","quiz","math","report"
-];
-
+const topics = ["numbers","letters","colors","animals","shapes","quiz","math","report"];
 const emojis = {
   numbers:["0️⃣","1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟"],
   letters:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
@@ -389,7 +332,6 @@ let correct = 0;
 let currentQuestion = null;
 let answered = false;
 
-const $ = id => document.getElementById(id);
 const labels = () => ui[lang];
 
 function say(text) {
@@ -397,61 +339,50 @@ function say(text) {
     $("feedback").textContent = "Audio is not supported in this browser.";
     return;
   }
-
   speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = {en:"en-GB", rw:"rw-RW", sv:"sv-SE", fr:"fr-FR"}[lang];
+  utterance.lang = {en:"en-GB",rw:"rw-RW",sv:"sv-SE",fr:"fr-FR"}[lang];
   speechSynthesis.speak(utterance);
 }
 
 function getLearningData() {
   let key = topic;
-
   if (topic === "quiz") {
     const choices = ["numbers","letters","colors","animals","shapes"];
     key = choices[Math.floor(Math.random() * choices.length)];
   }
-
   const u = labels();
   const arr = key === "numbers" ? u.numberNames :
     key === "letters" ? u.letterNames :
     key === "colors" ? u.colorNames :
     key === "animals" ? u.animalNames : u.shapeNames;
-
   return {key, arr, em:emojis[key]};
 }
 
 function renderCategories() {
   $("categories").innerHTML = "";
-
   labels().topics.forEach((name, i) => {
     const key = topics[i];
     const button = document.createElement("button");
     button.type = "button";
     button.className = "cat" + (key === topic ? " active" : "");
-
     const icon = document.createElement("span");
     icon.textContent = ["🔢","🔤","🎨","🐾","🔺","🧩","🧮","📊"][i];
-
     button.append(icon, document.createTextNode(name));
-
     button.addEventListener("click", () => {
       if (key === "math") {
         location.href = "./math.html";
         return;
       }
-
       if (key === "report") {
         location.href = "./math.html#report";
         return;
       }
-
       topic = key;
       idx = topic === "numbers" ? 1 : 0;
       renderCategories();
       renderLesson();
     });
-
     $("categories").appendChild(button);
   });
 }
@@ -460,25 +391,19 @@ function renderLesson() {
   const u = labels();
   const d = getLearningData();
   const i = Math.min(idx, d.arr.length - 1);
-
   const prompts = {
     numbers:u.number, letters:u.letter, colors:u.color,
     animals:u.animal, shapes:u.shape, quiz:u.quiz
   };
-
   $("prompt").textContent = prompts[d.key] || u.number;
   $("picture").textContent = d.em[i] || d.arr[i];
-
   const rightAnswer = d.arr[i];
   currentQuestion = {answer:rightAnswer, spokenAnswer:rightAnswer, key:d.key};
-
   const options = [rightAnswer];
-
   while (options.length < Math.min(4, d.arr.length)) {
     const option = d.arr[Math.floor(Math.random() * d.arr.length)];
     if (!options.includes(option)) options.push(option);
   }
-
   options.sort(() => Math.random() - 0.5);
   $("answers").innerHTML = "";
   $("feedback").textContent = "";
@@ -489,10 +414,8 @@ function renderLesson() {
     button.type = "button";
     button.className = "answer";
     button.textContent = option;
-
     button.addEventListener("click", () => {
       if (answered) return;
-
       if (option === rightAnswer) {
         answered = true;
         stars++;
@@ -507,14 +430,12 @@ function renderLesson() {
         say(u.try);
       }
     });
-
     $("answers").appendChild(button);
   });
 }
 
 function updateLanguage() {
   const u = labels();
-
   $("tagline").textContent = u.tag;
   $("languageLabel").textContent = u.language;
   $("welcomeTitle").textContent = u.welcome;
@@ -527,7 +448,6 @@ function updateLanguage() {
   $("registerLink").textContent = u.register;
   $("accountLink").textContent = u.account;
   $("logoutButton").textContent = u.logout;
-
   renderCategories();
   renderLesson();
 }
